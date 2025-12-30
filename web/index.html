@@ -28,6 +28,7 @@
         <span class="nav-dot" data-slide="7"></span>
         <span class="nav-dot" data-slide="8"></span>
         <span class="nav-dot" data-slide="9"></span>
+        <span class="nav-dot" data-slide="10"></span>
     </nav>
 
     <!-- Slides Container -->
@@ -71,7 +72,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </section>
 
@@ -317,11 +317,11 @@
                 </div>
             </section>
 
-            <!-- SLIDE 5: Network Overview -->
+            <!-- SLIDE 5: Network Overview A (graph_data.json) -->
             <section class="slide" id="slide-5">
                 <div class="slide-content network-slide">
                     <div class="section-header">
-                        <span class="section-number">04</span>
+                        <span class="section-number">04A</span>
                         <h2>Network Overview</h2>
                     </div>
                     
@@ -329,16 +329,16 @@
                         <!-- Network Visualization -->
                         <div class="network-viz-container">
                             <div class="viz-header">
-                                <h3>Interactive Co-Purchase Network</h3>
+                                <h3>Co-Purchase Network (graph_data.json)</h3>
                                 <div class="viz-controls">
-                                    <button class="control-btn" id="resetZoom">Reset View</button>
-                                    <button class="control-btn" id="togglePhysics">Toggle Physics</button>
+                                    <button class="control-btn" id="resetZoomA">Reset View</button>
+                                    <button class="control-btn" id="togglePhysicsA">Toggle Physics</button>
                                 </div>
                             </div>
-                            <div id="network-graph"></div>
+                            <div id="network-graph-a"></div>
                             <div class="viz-legend">
                                 <span class="legend-title">Genre:</span>
-                                <div class="legend-items" id="legend-items">
+                                <div class="legend-items" id="legend-items-a">
                                     <!-- Populated by JS -->
                                 </div>
                             </div>
@@ -350,28 +350,28 @@
                             <div class="stats-list">
                                 <div class="stat-row">
                                     <span class="stat-label">Total Nodes</span>
-                                    <span class="stat-value" id="stat-nodes">-</span>
+                                    <span class="stat-value" id="stat-nodes-a">-</span>
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Total Edges</span>
-                                    <span class="stat-value" id="stat-edges">-</span>
+                                    <span class="stat-value" id="stat-edges-a">-</span>
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Communities</span>
-                                    <span class="stat-value" id="stat-communities">-</span>
+                                    <span class="stat-value" id="stat-communities-a">-</span>
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Avg. Degree</span>
-                                    <span class="stat-value" id="stat-degree">-</span>
+                                    <span class="stat-value" id="stat-degree-a">-</span>
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Density</span>
-                                    <span class="stat-value" id="stat-density">-</span>
+                                    <span class="stat-value" id="stat-density-a">-</span>
                                 </div>
                             </div>
                             
                             <h4>🏆 Top Influential Nodes</h4>
-                            <div class="influential-list" id="influential-nodes">
+                            <div class="influential-list" id="influential-nodes-a">
                                 <!-- Populated by JS -->
                             </div>
                         </div>
@@ -379,8 +379,70 @@
                 </div>
             </section>
 
-            <!-- SLIDE 6: Community Detection -->
+            <!-- SLIDE 6: Network Overview B (graph_data_X.json) -->
             <section class="slide" id="slide-6">
+                <div class="slide-content network-slide">
+                    <div class="section-header">
+                        <span class="section-number">04B</span>
+                        <h2>Network Overview</h2>
+                    </div>
+                    
+                    <div class="network-layout">
+                        <!-- Network Visualization -->
+                        <div class="network-viz-container">
+                            <div class="viz-header">
+                                <h3>Co-Purchase Network (graph_data_X.json)</h3>
+                                <div class="viz-controls">
+                                    <button class="control-btn" id="resetZoomB">Reset View</button>
+                                    <button class="control-btn" id="togglePhysicsB">Toggle Physics</button>
+                                </div>
+                            </div>
+                            <div id="network-graph-b"></div>
+                            <div class="viz-legend">
+                                <span class="legend-title">Genre:</span>
+                                <div class="legend-items" id="legend-items-b">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Statistics Panel -->
+                        <div class="stats-panel">
+                            <h3>📊 Network Statistics</h3>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span class="stat-label">Total Nodes</span>
+                                    <span class="stat-value" id="stat-nodes-b">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Total Edges</span>
+                                    <span class="stat-value" id="stat-edges-b">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Communities</span>
+                                    <span class="stat-value" id="stat-communities-b">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Avg. Degree</span>
+                                    <span class="stat-value" id="stat-degree-b">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Density</span>
+                                    <span class="stat-value" id="stat-density-b">-</span>
+                                </div>
+                            </div>
+                            
+                            <h4>🏆 Top Influential Nodes</h4>
+                            <div class="influential-list" id="influential-nodes-b">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: Community Detection -->
+            <section class="slide" id="slide-7">
                 <div class="slide-content community-slide">
                     <div class="section-header">
                         <span class="section-number">05</span>
@@ -466,8 +528,8 @@
                 </div>
             </section>
 
-            <!-- SLIDE 7: Influential Products -->
-            <section class="slide" id="slide-7">
+            <!-- SLIDE 8: Influential Products -->
+            <section class="slide" id="slide-8">
                 <div class="slide-content">
                     <div class="section-header">
                         <span class="section-number">06</span>
@@ -538,8 +600,8 @@
                 </div>
             </section>
 
-            <!-- SLIDE 8: Recommendation Patterns -->
-            <section class="slide" id="slide-8">
+            <!-- SLIDE 9: Recommendation Patterns -->
+            <section class="slide" id="slide-9">
                 <div class="slide-content">
                     <div class="section-header">
                         <span class="section-number">07</span>
@@ -547,17 +609,15 @@
                     </div>
                     
                     <div class="recommendation-layout">
-                        <!-- Pattern Visualization -->
+                        <!-- Genre Correlation Graph -->
                         <div class="pattern-viz">
-                            <div class="genre-graph-container">
-                                <div class="viz-header">
+                            <div class="genre-graph-card">
+                                <div class="pattern-header">
+                                    <span class="pattern-icon">🔗</span>
                                     <h3>Genre Co-Purchase Network</h3>
-                                    <div class="viz-controls">
-                                        <button class="control-btn" id="resetGenreZoom">Reset View</button>
-                                    </div>
                                 </div>
-                                <div id="genre-graph"></div>
-                                <p class="viz-caption">Node size = Total connections, Edge thickness = Co-purchase frequency</p>
+                                <div id="genre-graph" class="genre-graph-container"></div>
+                                <p class="pattern-desc">Visualisasi jaringan korelasi antar genre berdasarkan data co-purchase. Ukuran edge menunjukkan frekuensi co-purchase.</p>
                             </div>
                         </div>
                         
@@ -600,8 +660,8 @@
                 </div>
             </section>
 
-            <!-- SLIDE 9: Information Diffusion -->
-            <section class="slide" id="slide-9">
+            <!-- SLIDE 10: Information Diffusion -->
+            <section class="slide" id="slide-10">
                 <div class="slide-content diffusion-slide">
                     <div class="section-header">
                         <span class="section-number">08</span>
@@ -685,8 +745,8 @@
                 </div>
             </section>
 
-            <!-- SLIDE 10: Thank You -->
-            <section class="slide" id="slide-10">
+            <!-- SLIDE 11: Thank You -->
+            <section class="slide" id="slide-11">
                 <div class="slide-content thankyou-slide">
                     <div class="thankyou-decoration">
                         <div class="deco-circle c1"></div>
@@ -711,7 +771,7 @@
                                 <div class="contact-icon">🔗</div>
                                 <div class="contact-info">
                                     <span class="contact-label">Repository</span>
-                                    <span class="contact-value">github.com/tubes-ajs-kel6</span>
+                                    <a href="https://github.com/Otachiking/AJS_AmazonCoPurchases" target="_blank" class="contact-value contact-link">github.com/Otachiking/AJS_AmazonCoPurchases</a>
                                 </div>
                             </div>
                         </div>
@@ -728,7 +788,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </section>
             
