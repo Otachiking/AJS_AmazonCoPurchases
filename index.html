@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Co-Purchase Network Analysis | Telkom University</title>
+    
+    <!-- Google Fonts - Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Vis.js for Network Visualization -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Indicator -->
+    <nav class="nav-indicator">
+        <div class="nav-dots">
+            <span class="nav-dot active" data-slide="0"></span>
+            <span class="nav-dot" data-slide="1"></span>
+            <span class="nav-dot" data-slide="2"></span>
+            <span class="nav-dot" data-slide="3"></span>
+            <span class="nav-dot" data-slide="4"></span>
+        </div>
+        <div class="nav-arrows">
+            <button class="nav-arrow prev" aria-label="Previous slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+            </button>
+            <span class="slide-counter">1 / 5</span>
+            <button class="nav-arrow next" aria-label="Next slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9,6 15,12 9,18"></polyline>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Keyboard Hint -->
+    <div class="keyboard-hint">
+        <span>←</span> <span>→</span> untuk navigasi
+    </div>
+
+    <!-- Slides Container -->
+    <div class="slides-container">
+        <div class="slides-wrapper">
+            
+            <!-- SLIDE 1: Title & Identity -->
+            <section class="slide" id="slide-1">
+                <div class="slide-content title-slide">
+                    <div class="title-decoration">
+                        <div class="decoration-line"></div>
+                        <div class="decoration-circle"></div>
+                    </div>
+                    
+                    <div class="title-main">
+                        <span class="subtitle-badge">Analisis Jaringan Sosial</span>
+                        <h1>Amazon Product<br>Co-Purchasing Network</h1>
+                        <p class="tagline">E-Commerce Structural Analysis & Recommendation Strategy</p>
+                    </div>
+                    
+                    <div class="team-info">
+                        <div class="team-card">
+                            <h3>Research Team</h3>
+                            <div class="team-members">
+                                <div class="member">
+                                    <span class="member-name">Rafi Suwargana Putra</span>
+                                </div>
+                                <div class="member">
+                                    <span class="member-name">Muhammad Iqbal Rasyid</span>
+                                </div>
+                                <div class="member">
+                                    <span class="member-name">Marcel Epafroditus Hutahaean</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="university-badge">
+                            <div class="badge-icon">🎓</div>
+                            <div class="badge-text">
+                                <span class="program">S-1 Informatika</span>
+                                <span class="university">Telkom University</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scroll-hint">
+                        <span>Tekan → untuk melanjutkan</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,6 15,12 9,18"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: Dataset & Co-Purchase Concept -->
+            <section class="slide" id="slide-2">
+                <div class="slide-content">
+                    <div class="section-header">
+                        <span class="section-number">01</span>
+                        <h2>Dataset & Co-Purchase Concept</h2>
+                    </div>
+                    
+                    <div class="content-grid two-column">
+                        <!-- Data Source Card -->
+                        <div class="info-card primary">
+                            <div class="card-header">
+                                <div class="card-icon">📊</div>
+                                <h3>Sumber Data</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="source-item">
+                                    <span class="source-label">Primary Source</span>
+                                    <span class="source-value">Stanford Network Analysis Project (SNAP)</span>
+                                </div>
+                                <div class="source-item">
+                                    <span class="source-label">Dataset</span>
+                                    <span class="source-value">Amazon Product Co-Purchasing Network</span>
+                                </div>
+                                <div class="source-item">
+                                    <span class="source-label">Collection Date</span>
+                                    <span class="source-value">March 2003</span>
+                                </div>
+                                <div class="source-item">
+                                    <span class="source-label">Metadata</span>
+                                    <span class="source-value">Kaggle Amazon Product Dataset</span>
+                                </div>
+                                
+                                <div class="stats-grid">
+                                    <div class="stat-box">
+                                        <span class="stat-value">262,111</span>
+                                        <span class="stat-label">Nodes (Products)</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-value">1,234,877</span>
+                                        <span class="stat-label">Edges (Co-purchases)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Co-Purchase Concept Card -->
+                        <div class="info-card secondary">
+                            <div class="card-header">
+                                <div class="card-icon">🔗</div>
+                                <h3>Konsep Co-Purchase</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="concept-diagram">
+                                    <div class="product-node main">Product A</div>
+                                    <div class="connection-lines">
+                                        <div class="line line-1"></div>
+                                        <div class="line line-2"></div>
+                                        <div class="line line-3"></div>
+                                    </div>
+                                    <div class="related-products">
+                                        <div class="product-node related">Product B</div>
+                                        <div class="product-node related">Product C</div>
+                                        <div class="product-node related">Product D</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="concept-explanation">
+                                    <p><strong>"Customers who bought this also bought..."</strong></p>
+                                    <p>Edge terbentuk ketika dua produk sering dibeli bersama oleh pelanggan yang sama, menunjukkan hubungan preferensi konsumen.</p>
+                                </div>
+                                
+                                <div class="feature-list">
+                                    <div class="feature-item">
+                                        <span class="check-icon">✓</span>
+                                        <span>Directed Graph (A → B)</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <span class="check-icon">✓</span>
+                                        <span>Implicit Relationship</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <span class="check-icon">✓</span>
+                                        <span>Recommendation Basis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: Related Work -->
+            <section class="slide" id="slide-3">
+                <div class="slide-content">
+                    <div class="section-header">
+                        <span class="section-number">02</span>
+                        <h2>Related Work</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Peneliti</th>
+                                    <th>Metode/Pendekatan</th>
+                                    <th>Hasil Utama</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Leskovec et al. (2007)</td>
+                                    <td>Graph Mining, Community Detection pada Amazon Network</td>
+                                    <td>Menemukan struktur komunitas yang kuat dalam jaringan co-purchase</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Huang et al. (2004)</td>
+                                    <td>Association Rules dengan Co-purchase Data</td>
+                                    <td>Algoritma rekomendasi berbasis frequent itemset mining</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Yang & Leskovec (2015)</td>
+                                    <td>Overlapping Community Detection</td>
+                                    <td>BIGCLAM: Deteksi komunitas overlapping pada jaringan besar</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Clauset et al. (2004)</td>
+                                    <td>Modularity-based Clustering</td>
+                                    <td>Algoritma greedy untuk deteksi komunitas optimal</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Blondel et al. (2008)</td>
+                                    <td>Louvain Algorithm</td>
+                                    <td>Algoritma fast community detection untuk jaringan besar</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="research-gap">
+                        <div class="gap-icon">💡</div>
+                        <div class="gap-content">
+                            <h4>Research Gap & Contribution</h4>
+                            <p>Penelitian ini fokus pada analisis subset DVD dari dataset Amazon untuk mengidentifikasi pola co-purchase berdasarkan genre dan menganalisis node-node yang berpengaruh dalam struktur jaringan.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: Pre-Processing -->
+            <section class="slide" id="slide-4">
+                <div class="slide-content">
+                    <div class="section-header">
+                        <span class="section-number">03</span>
+                        <h2>Pre-Processing Pipeline</h2>
+                    </div>
+                    
+                    <div class="pipeline-container">
+                        <!-- Step 1 -->
+                        <div class="pipeline-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Ekstraksi & Filtrasi Subset</h3>
+                                <div class="step-details">
+                                    <div class="step-icon">🎬</div>
+                                    <div class="step-info">
+                                        <p><strong>Focus: DVD Category</strong></p>
+                                        <ul>
+                                            <li>Filter produk berdasarkan kategori DVD</li>
+                                            <li>Ekstraksi subgraph dari main network</li>
+                                            <li>Validasi konektivitas komponen</li>
+                                        </ul>
+                                        <div class="step-stats">
+                                            <span class="stat">262K → 19,828 nodes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="pipeline-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Inferensi Genre</h3>
+                                <div class="step-details">
+                                    <div class="step-icon">🏷️</div>
+                                    <div class="step-info">
+                                        <p><strong>Genre Classification</strong></p>
+                                        <ul>
+                                            <li>Mapping metadata dari Kaggle</li>
+                                            <li>Kategorisasi produk ke genre</li>
+                                            <li>Handling missing values</li>
+                                        </ul>
+                                        <div class="step-stats">
+                                            <span class="stat">20+ Genre Categories</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-arrow">→</div>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="pipeline-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Reduksi Graf</h3>
+                                <div class="step-details">
+                                    <div class="step-icon">📉</div>
+                                    <div class="step-info">
+                                        <p><strong>Graph Optimization</strong></p>
+                                        <ul>
+                                            <li>K-core decomposition</li>
+                                            <li>Remove isolated nodes</li>
+                                            <li>Sampling untuk visualisasi</li>
+                                        </ul>
+                                        <div class="step-stats">
+                                            <span class="stat">~500 nodes (visualization)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="processing-summary">
+                        <div class="summary-card">
+                            <h4>📌 Summary</h4>
+                            <p>Proses pre-processing menghasilkan graf yang teroptimasi untuk analisis struktur jaringan, deteksi komunitas, dan visualisasi interaktif.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: Network Overview -->
+            <section class="slide" id="slide-5">
+                <div class="slide-content network-slide">
+                    <div class="section-header">
+                        <span class="section-number">04</span>
+                        <h2>Network Overview</h2>
+                    </div>
+                    
+                    <div class="network-layout">
+                        <!-- Network Visualization -->
+                        <div class="network-viz-container">
+                            <div class="viz-header">
+                                <h3>Interactive Co-Purchase Network</h3>
+                                <div class="viz-controls">
+                                    <button class="control-btn" id="resetZoom">Reset View</button>
+                                    <button class="control-btn" id="togglePhysics">Toggle Physics</button>
+                                </div>
+                            </div>
+                            <div id="network-graph"></div>
+                            <div class="viz-legend">
+                                <span class="legend-title">Genre:</span>
+                                <div class="legend-items" id="legend-items">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Statistics Panel -->
+                        <div class="stats-panel">
+                            <h3>📊 Network Statistics</h3>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span class="stat-label">Total Nodes</span>
+                                    <span class="stat-value" id="stat-nodes">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Total Edges</span>
+                                    <span class="stat-value" id="stat-edges">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Communities</span>
+                                    <span class="stat-value" id="stat-communities">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Avg. Degree</span>
+                                    <span class="stat-value" id="stat-degree">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Density</span>
+                                    <span class="stat-value" id="stat-density">-</span>
+                                </div>
+                            </div>
+                            
+                            <h4>🏆 Top Influential Nodes</h4>
+                            <div class="influential-list" id="influential-nodes">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
+    <script src="presentation.js"></script>
+</body>
+</html>

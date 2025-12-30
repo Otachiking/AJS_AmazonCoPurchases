@@ -1,0 +1,118 @@
+FROM,TO,COUNT_DIR,COUNT_UND
+Other,Other,53,33
+Other,Drama,30,32
+Comedy,Drama,29,32
+Drama,Comedy,28,32
+Drama,Other,25,32
+Music Video & Concerts,Music Video & Concerts,25,14
+Comedy,Other,23,27
+Drama,Drama,23,13
+Kids & Family,Kids & Family,23,12
+Other,Comedy,22,27
+Action & Adventure,Action & Adventure,18,10
+Comedy,Comedy,15,9
+Science Fiction & Fantasy,Other,14,14
+Drama,Mystery & Suspense,13,15
+Horror,Comedy,13,14
+Mystery & Suspense,Drama,12,15
+Drama,Action & Adventure,12,14
+Action & Adventure,Drama,12,14
+Other,Science Fiction & Fantasy,12,14
+Horror,Music Video & Concerts,11,12
+Television,Other,11,12
+Comedy,Mystery & Suspense,11,11
+Mystery & Suspense,Comedy,11,11
+Music Video & Concerts,Horror,10,12
+Other,Television,10,12
+Action & Adventure,Other,10,11
+Other,Mystery & Suspense,10,10
+Mystery & Suspense,Mystery & Suspense,10,6
+Television,Television,10,5
+Comedy,Horror,9,14
+Documentary,Other,9,11
+Other,Action & Adventure,9,11
+Music Video & Concerts,Television,9,10
+Music Video & Concerts,Other,9,10
+Kids & Family,Drama,9,10
+Science Fiction & Fantasy,Drama,9,10
+Other,Music Video & Concerts,9,10
+Comedy,Music Video & Concerts,9,9
+Music Video & Concerts,Comedy,9,9
+Other,Documentary,8,11
+Drama,Kids & Family,8,10
+Drama,Science Fiction & Fantasy,8,10
+Mystery & Suspense,Other,8,10
+Horror,Other,8,10
+Television,Music Video & Concerts,8,10
+Drama,Horror,8,9
+Drama,Documentary,8,8
+Action & Adventure,Comedy,8,8
+Action & Adventure,Kids & Family,8,8
+Documentary,Drama,8,8
+Other,Horror,7,10
+Horror,Drama,7,9
+Music Video & Concerts,Kids & Family,7,8
+Kids & Family,Music Video & Concerts,7,8
+Kids & Family,Action & Adventure,7,8
+Action & Adventure,Horror,7,7
+Horror,Action & Adventure,7,7
+Documentary,Comedy,7,7
+Science Fiction & Fantasy,Comedy,7,7
+Comedy,Action & Adventure,6,8
+Comedy,Documentary,6,7
+Horror,Kids & Family,6,6
+Horror,Horror,6,3
+Documentary,Documentary,6,3
+Drama,Television,5,6
+Kids & Family,Other,5,6
+Television,Drama,5,6
+Television,Comedy,5,6
+Other,Kids & Family,5,6
+Music Video & Concerts,Drama,5,5
+Mystery & Suspense,Music Video & Concerts,5,5
+Mystery & Suspense,Action & Adventure,5,5
+Mystery & Suspense,Horror,5,5
+Horror,Mystery & Suspense,5,5
+Science Fiction & Fantasy,Science Fiction & Fantasy,5,3
+Comedy,Science Fiction & Fantasy,4,7
+Comedy,Television,4,6
+Kids & Family,Horror,4,6
+Music Video & Concerts,Mystery & Suspense,4,5
+Action & Adventure,Mystery & Suspense,4,5
+Action & Adventure,Documentary,4,4
+Documentary,Action & Adventure,4,4
+Documentary,Science Fiction & Fantasy,4,4
+Television,Documentary,4,4
+Science Fiction & Fantasy,Documentary,4,4
+Comedy,Kids & Family,3,3
+Music Video & Concerts,Documentary,3,3
+Mystery & Suspense,Kids & Family,3,3
+Mystery & Suspense,Science Fiction & Fantasy,3,3
+Science Fiction & Fantasy,Mystery & Suspense,3,3
+Drama,Music Video & Concerts,2,5
+Documentary,Television,2,4
+Kids & Family,Comedy,2,3
+Documentary,Music Video & Concerts,2,3
+Music Video & Concerts,Action & Adventure,2,2
+Action & Adventure,Music Video & Concerts,2,2
+Mystery & Suspense,Documentary,2,2
+Horror,Documentary,2,2
+Documentary,Mystery & Suspense,2,2
+Documentary,Horror,2,2
+Television,Horror,2,2
+Kids & Family,Mystery & Suspense,1,3
+Horror,Television,1,2
+Music Video & Concerts,Science Fiction & Fantasy,1,1
+Mystery & Suspense,Television,1,1
+Horror,Science Fiction & Fantasy,1,1
+Kids & Family,Documentary,1,1
+Kids & Family,Television,1,1
+Kids & Family,Science Fiction & Fantasy,1,1
+Television,Mystery & Suspense,1,1
+Television,Kids & Family,1,1
+Television,Science Fiction & Fantasy,1,1
+Science Fiction & Fantasy,Music Video & Concerts,1,1
+Science Fiction & Fantasy,Kids & Family,1,1
+Documentary,Kids & Family,0,1
+Science Fiction & Fantasy,Horror,0,1
+Science Fiction & Fantasy,Television,0,1

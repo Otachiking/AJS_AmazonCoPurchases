@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Amazon Co-Purchasing Network Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" id="theme">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+
+    <style>
+        :root {
+            --primary: #2563EB; /* Royal Blue */
+            --accent: #F97316;  /* Orange */
+            --text: #1E293B;    /* Slate 800 */
+            --bg: #F8FAFC;      /* Slate 50 */
+        }
+        
+        body { background-color: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif !important; }
+        .reveal { color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #0F172A; text-transform: none; }
+        
+        /* Custom UI Elements */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: left;
+            margin: 1rem 0;
+        }
+        
+        .stat-box {
+            display: inline-block;
+            background: #EFF6FF;
+            color: var(--primary);
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        /* Network Containers */
+        #mynetwork, #communityNetwork, #diffusionNetwork {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #E2E8F0;
+            background: white;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        /* Table Styles */
+        table { font-size: 0.6em !important; width: 100%; border-collapse: collapse; }
+        th { background-color: var(--primary); color: white; padding: 10px; }
+        td { border-bottom: 1px solid #ddd; padding: 8px; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+
+        .controls { margin-top: 10px; }
+        button {
+            background-color: var(--primary); color: white; border: none; padding: 10px 20px;
+            border-radius: 6px; cursor: pointer; font-family: 'Plus Jakarta Sans'; font-weight: 600;
+        }
+        button:hover { opacity: 0.9; }
+        button.reset { background-color: #EF4444; }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <div style="background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%); padding: 40px; border-radius: 20px;">
+                    <h3 style="color: var(--primary);">Amazon Product Co-Purchasing Network</h3>
+                    <h5 style="color: var(--accent);">E-Commerce Structural Analysis & Recommendation Strategy</h5>
+                    <hr style="width: 100px; border: 3px solid var(--primary);">
+                    <p style="font-size: 0.8em; margin-top: 40px;">
+                        <strong>Created by:</strong><br>
+                        Rafi Suwargana Putra<br>
+                        Muhammad Iqbal Rasyid<br>
+                        Marcel Epafroditus Hutahaean<br><br>
+                        <span style="opacity: 0.7;">S-1 Informatika - Telkom University</span>
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h3>Dataset & Concept</h3>
+                <div style="display: flex; gap: 20px;">
+                    <div class="card" style="flex: 1;">
+                        <h4>Source: SNAP Stanford</h4>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>Dataset:</strong> Amazon Product Co-Purchasing Network (March 2003)</li>
+                            <li><strong>Nodes:</strong> Products (DVDs, Books, Music)</li>
+                            <li><strong>Edges:</strong> "Customers who bought this also bought..."</li>
+                            <li><strong>Metadata:</strong> Enhanced with Kaggle metadata for Genre/Title.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="flex: 1;">
+                        <h4>The Co-Purchase Concept</h4>
+                        <p style="font-size: 0.7em;">
+                            Graf ini adalah <strong>Directed Graph</strong>. 
+                            Jika Produk A memiliki edge ke Produk B, artinya Amazon merekomendasikan B di halaman A.
+                            Ini mencerminkan perilaku pembelian kolektif pengguna.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Related Work</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Researcher</th>
+                            <th>Focus</th>
+                            <th>Key Finding</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Leskovec et al. (2007)</td>
+                            <td>Viral Marketing</td>
+                            <td>Small clusters matter more for viral spread than huge hubs.</td>
+                        </tr>
+                        <tr>
+                            <td>Newman (2003)</td>
+                            <td>Network Structure</td>
+                            <td>Social networks exhibit high clustering coefficients (Small World).</td>
+                        </tr>
+                        <tr>
+                            <td>Barabási (2016)</td>
+                            <td>Scale-Free Networks</td>
+                            <td>Preferential Attachment (Rich get richer) creates Hubs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Pre-Processing Pipeline</h3>
+                <div style="font-size: 0.8em; text-align: left;">
+                    <p>⚡ <strong>1. Filtrasi Subset:</strong> Mengambil hanya kategori <em>DVD</em> dari jutaan produk.</p>
+                    <p>🏷️ <strong>2. Inferensi Genre:</strong> Mapping ID produk ke metadata Kaggle untuk mendapatkan Judul & Genre.</p>
+                    <p>🧹 <strong>3. Reduksi Graf:</strong></p>
+                    <ul>
+                        <li>Menghapus node terisolasi (Degree = 0).</li>
+                        <li>Fokus pada Giant Component & sub-komponen relevan.</li>
+                        <li><strong>Hasil Akhir:</strong> 503 Nodes, 922 Edges.</li>
+                    </ul>
+                </div>
+                <div class="stat-box">Reduced from ~400k to 503 Focused Nodes</div>
+            </section>
+
+            <section>
+                <h4>Network Overview (Interactive)</h4>
+                <p style="font-size: 0.5em;">Scroll to Zoom, Drag to Pan, Click Node to see details.</p>
+                <div id="mynetwork"></div>
+                <div style="display: flex; justify-content: center; gap: 10px; font-size: 0.6em; margin-top: 10px;">
+                    <div class="stat-box">Nodes: 503</div>
+                    <div class="stat-box">Edges: 922</div>
+                    <div class="stat-box">Density: 0.003</div>
+                </div>
+            </section>
+
+            <section>
+                <h3>The "Archipelago" Structure</h3>
+                <p style="font-size: 0.6em;">Algorithm: <strong>Louvain Method</strong>. Result: <strong>162 Fragmented Communities</strong>.</p>
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 2;">
+                        <div id="communityNetwork"></div>
+                    </div>
+                    <div style="flex: 1; font-size: 0.5em;" class="card">
+                        <h5>Community Stats</h5>
+                        <ul>
+                            <li><strong>Cluster 56 (Classics):</strong> 13 Nodes. Hub: <em>Hollywood Screen Tests</em>.</li>
+                            <li><strong>Cluster 73 (Docu):</strong> 6 Nodes. Hub: <em>Listen to Britain</em>.</li>
+                            <li><strong>Insight:</strong> Pasar terfragmentasi menjadi "pulau-pulau" kecil (Niche Markets).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Influential Products</h3>
+                <div style="display: flex; gap: 20px;">
+                    <table style="flex: 1;">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Metric</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hollywood Screen Tests</td>
+                                <td>High PageRank</td>
+                                <td><strong>Authority</strong> (Reference)</td>
+                            </tr>
+                            <tr>
+                                <td>Taps (Drama)</td>
+                                <td>High Out-Degree</td>
+                                <td><strong>Hub</strong> (Spreader)</td>
+                            </tr>
+                            <tr>
+                                <td>Hidden Hollywood</td>
+                                <td>High Betweenness</td>
+                                <td><strong>Bridge</strong> (Connector)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="font-size: 0.6em; margin-top: 20px;" class="card">
+                    💡 <strong>Insight:</strong> Popularitas (In-Degree) tidak sama dengan Pengaruh (PageRank). 
+                    Produk "Hub" aktif menyebarkan user, Produk "Authority" adalah tujuan akhir user.
+                </p>
+            </section>
+
+            <section>
+                <h3>Pola Rekomendasi (Strategy)</h3>
+                <p style="font-size: 0.6em;">Analisis Genre Dynamics menemukan dua strategi algoritma:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="card" style="border-left: 5px solid var(--accent);">
+                        <h5>1. Exploration (Mainstream)</h5>
+                        <p style="font-size: 0.6em;">
+                            <strong>Genre:</strong> Drama, Comedy, Horror.<br>
+                            <strong>Sifat:</strong> Cross-Selling tinggi.<br>
+                            <strong>Strategi:</strong> "Gateway Drug". Algoritma menggunakan produk ini untuk melempar user ke genre lain.
+                        </p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--primary);">
+                        <h5>2. Exploitation (Niche)</h5>
+                        <p style="font-size: 0.6em;">
+                            <strong>Genre:</strong> Kids & Family, Music.<br>
+                            <strong>Sifat:</strong> Homofili tinggi (Walled Garden).<br>
+                            <strong>Strategi:</strong> "Retention". Menjaga user agar tetap belanja di kategori yang sama.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Information Diffusion Simulation</h3>
+                <p style="font-size: 0.5em;"><strong>Click any node</strong> to plant a seed. See how information spreads (Independent Cascade).</p>
+                
+                <div style="position: relative;">
+                    <div id="diffusionNetwork"></div>
+                    <div class="controls" style="position: absolute; top: 10px; right: 10px;">
+                        <button class="reset" onclick="resetDiffusion()">Reset Simulation</button>
+                    </div>
+                </div>
+                <p style="font-size: 0.5em; color: gray;">*Simulasi di browser ini disederhanakan. Versi penuh ada di Python.</p>
+            </section>
+            
+            <section>
+                <h3>Thank You</h3>
+                <p>Decoding the Archipelago Market.</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    
+    <script>
+        // 1. Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide' // none/fade/slide/convex/concave/zoom
+        });
+
+        // ==========================================
+        // DUMMY DATA GENERATOR (REPLACE THIS WITH YOUR PYTHON JSON)
+        // ==========================================
+        function generateDummyData(count) {
+            const nodes = [];
+            const edges = [];
+            const groups = ['Drama', 'Comedy', 'Kids', 'Horror', 'Classics'];
+            
+            for (let i = 1; i <= count; i++) {
+                const group = groups[Math.floor(Math.random() * groups.length)];
+                nodes.push({ 
+                    id: i, 
+                    label: i <= 5 ? (group + " Hub") : "", // Only label hubs
+                    group: group,
+                    value: i <= 5 ? 20 : 5 // Hubs are bigger
+                });
+            }
+
+            // Create clusters (Archipelago effect)
+            for (let i = 1; i <= count; i++) {
+                // Connect to random node in same group (High Homophily)
+                const target = Math.floor(Math.random() * count) + 1;
+                if(nodes[target-1].group === nodes[i-1].group) {
+                    edges.push({ from: i, to: target });
+                }
+                // Connect to Hub
+                if(i > 5 && Math.random() > 0.7) {
+                    // Connect to hub of same group
+                    const hubIndex = groups.indexOf(nodes[i-1].group); 
+                    edges.push({ from: i, to: hubIndex + 1 });
+                }
+            }
+            
+            // Add some cross-genre edges (Drama <-> Comedy)
+            edges.push({from: 1, to: 2}); // Drama Hub <-> Comedy Hub
+            
+            return { nodes, edges };
+        }
+
+        const data = generateDummyData(100); // 100 Nodes demo
+
+        // ==========================================
+        // 2. NETWORK OVERVIEW & COMMUNITY
+        // ==========================================
+        
+        // Options for Vis.js
+        const options = {
+            nodes: { shape: 'dot', font: { face: 'Plus Jakarta Sans', color: '#333' } },
+            edges: { color: { color: '#cbd5e1' }, arrows: 'to' },
+            physics: { stabilization: false, barnesHut: { gravitationalConstant: -2000 } }
+        };
+
+        // Render Overview
+        new vis.Network(document.getElementById('mynetwork'), {
+            nodes: new vis.DataSet(data.nodes),
+            edges: new vis.DataSet(data.edges)
+        }, options);
+
+        // Render Community (Same data, just different container concept)
+        const commOptions = { ...options };
+        commOptions.groups = {
+            Drama: { color: '#EF4444' },
+            Comedy: { color: '#F59E0B' },
+            Kids: { color: '#10B981' },
+            Horror: { color: '#3B82F6' },
+            Classics: { color: '#6366F1' }
+        };
+        new vis.Network(document.getElementById('communityNetwork'), {
+            nodes: new vis.DataSet(data.nodes),
+            edges: new vis.DataSet(data.edges)
+        }, commOptions);
+
+        // ==========================================
+        // 3. INFORMATION DIFFUSION (INTERACTIVE)
+        // ==========================================
+        
+        // Setup Diffusion Network
+        const diffNodes = new vis.DataSet(data.nodes.map(n => ({...n, color: '#E2E8F0'}))); // Start Grey
+        const diffEdges = new vis.DataSet(data.edges);
+        
+        const diffContainer = document.getElementById('diffusionNetwork');
+        const diffNetwork = new vis.Network(diffContainer, { nodes: diffNodes, edges: diffEdges }, options);
+
+        // Click Event for Infection
+        diffNetwork.on("click", function (params) {
+            if (params.nodes.length > 0) {
+                const seedId = params.nodes[0];
+                infectNode(seedId);
+            }
+        });
+
+        function infectNode(nodeId) {
+            // 1. Change color of clicked node (Seed)
+            diffNodes.update({ id: nodeId, color: '#F97316' }); // Orange
+
+            // 2. Find Neighbors (Simple 1-step diffusion simulation)
+            const connected = diffNetwork.getConnectedNodes(nodeId);
+            
+            setTimeout(() => {
+                connected.forEach(neighborId => {
+                    // Random probability to infect neighbor (IC Model simplified)
+                    if(Math.random() > 0.3) { 
+                        diffNodes.update({ id: neighborId, color: '#F97316' });
+                    }
+                });
+            }, 500); // Delay for visual effect
+        }
+
+        function resetDiffusion() {
+            const resetData = data.nodes.map(n => ({ id: n.id, color: '#E2E8F0' }));
+            diffNodes.update(resetData);
+        }
+
+    </script>
+</body>
+</html>
