@@ -1,0 +1,920 @@
+{
+  "nodes": [
+    {
+      "id": "Musicals & Performing Arts",
+      "label": "Musicals & Performing Arts",
+      "value": 19,
+      "title": "Musicals & Performing Arts: 19 DVDs",
+      "color": "#d35400",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Television",
+      "label": "Television",
+      "value": 24,
+      "title": "Television: 24 DVDs",
+      "color": "#16a085",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Action & Adventure",
+      "label": "Action & Adventure",
+      "value": 39,
+      "title": "Action & Adventure: 39 DVDs",
+      "color": "#e67e22",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Kids & Family",
+      "label": "Kids & Family",
+      "value": 40,
+      "title": "Kids & Family: 40 DVDs",
+      "color": "#3498db",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Drama",
+      "label": "Drama",
+      "value": 73,
+      "title": "Drama: 73 DVDs",
+      "color": "#e74c3c",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Comedy",
+      "label": "Comedy",
+      "value": 69,
+      "title": "Comedy: 69 DVDs",
+      "color": "#f39c12",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Music Video & Concerts",
+      "label": "Music Video & Concerts",
+      "value": 46,
+      "title": "Music Video & Concerts: 46 DVDs",
+      "color": "#9b59b6",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Documentary",
+      "label": "Documentary",
+      "value": 23,
+      "title": "Documentary: 23 DVDs",
+      "color": "#27ae60",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Mystery & Suspense",
+      "label": "Mystery & Suspense",
+      "value": 35,
+      "title": "Mystery & Suspense: 35 DVDs",
+      "color": "#34495e",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Horror",
+      "label": "Horror",
+      "value": 36,
+      "title": "Horror: 36 DVDs",
+      "color": "#1abc9c",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Classics",
+      "label": "Classics",
+      "value": 18,
+      "title": "Classics: 18 DVDs",
+      "color": "#c0392b",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Science Fiction & Fantasy",
+      "label": "Science Fiction & Fantasy",
+      "value": 23,
+      "title": "Science Fiction & Fantasy: 23 DVDs",
+      "color": "#8e44ad",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Sports",
+      "label": "Sports",
+      "value": 20,
+      "title": "Sports: 20 DVDs",
+      "color": "#2ecc71",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Religion & Spirituality",
+      "label": "Religion & Spirituality",
+      "value": 2,
+      "title": "Religion & Spirituality: 2 DVDs",
+      "color": "#ff6b6b",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "General",
+      "label": "General",
+      "value": 4,
+      "title": "General: 4 DVDs",
+      "color": "#95a5a6",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Animation",
+      "label": "Animation",
+      "value": 18,
+      "title": "Animation: 18 DVDs",
+      "color": "#2980b9",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Military & War",
+      "label": "Military & War",
+      "value": 4,
+      "title": "Military & War: 4 DVDs",
+      "color": "#576574",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Adult",
+      "label": "Adult",
+      "value": 6,
+      "title": "Adult: 6 DVDs",
+      "color": "#7f8c8d",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Travel",
+      "label": "Travel",
+      "value": 1,
+      "title": "Travel: 1 DVDs",
+      "color": "#feca57",
+      "font": {
+        "size": 12
+      }
+    },
+    {
+      "id": "Art & International",
+      "label": "Art & International",
+      "value": 3,
+      "title": "Art & International: 3 DVDs",
+      "color": "#0abde3",
+      "font": {
+        "size": 12
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "Comedy",
+      "to": "Drama",
+      "value": 57,
+      "title": "Comedy ↔ Drama: 57 connections"
+    },
+    {
+      "from": "Music Video & Concerts",
+      "to": "Music Video & Concerts",
+      "value": 25,
+      "title": "Music Video & Concerts ↔ Music Video & Concerts: 25 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Mystery & Suspense",
+      "value": 25,
+      "title": "Drama ↔ Mystery & Suspense: 25 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Drama",
+      "value": 24,
+      "title": "Action & Adventure ↔ Drama: 24 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Kids & Family",
+      "value": 23,
+      "title": "Kids & Family ↔ Kids & Family: 23 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Drama",
+      "value": 23,
+      "title": "Drama ↔ Drama: 23 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Horror",
+      "value": 22,
+      "title": "Comedy ↔ Horror: 22 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Mystery & Suspense",
+      "value": 22,
+      "title": "Comedy ↔ Mystery & Suspense: 22 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Music Video & Concerts",
+      "value": 21,
+      "title": "Horror ↔ Music Video & Concerts: 21 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Music Video & Concerts",
+      "value": 18,
+      "title": "Comedy ↔ Music Video & Concerts: 18 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Action & Adventure",
+      "value": 18,
+      "title": "Action & Adventure ↔ Action & Adventure: 18 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Kids & Family",
+      "value": 17,
+      "title": "Drama ↔ Kids & Family: 17 connections"
+    },
+    {
+      "from": "Music Video & Concerts",
+      "to": "Television",
+      "value": 17,
+      "title": "Music Video & Concerts ↔ Television: 17 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Science Fiction & Fantasy",
+      "value": 17,
+      "title": "Drama ↔ Science Fiction & Fantasy: 17 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Drama",
+      "value": 16,
+      "title": "Documentary ↔ Drama: 16 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Kids & Family",
+      "value": 15,
+      "title": "Action & Adventure ↔ Kids & Family: 15 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Horror",
+      "value": 15,
+      "title": "Drama ↔ Horror: 15 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Comedy",
+      "value": 15,
+      "title": "Comedy ↔ Comedy: 15 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Comedy",
+      "value": 14,
+      "title": "Action & Adventure ↔ Comedy: 14 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Music Video & Concerts",
+      "value": 14,
+      "title": "Kids & Family ↔ Music Video & Concerts: 14 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Horror",
+      "value": 14,
+      "title": "Action & Adventure ↔ Horror: 14 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Comedy",
+      "value": 14,
+      "title": "Classics ↔ Comedy: 14 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Documentary",
+      "value": 13,
+      "title": "Comedy ↔ Documentary: 13 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Musicals & Performing Arts",
+      "value": 12,
+      "title": "Comedy ↔ Musicals & Performing Arts: 12 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Science Fiction & Fantasy",
+      "value": 11,
+      "title": "Comedy ↔ Science Fiction & Fantasy: 11 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Musicals & Performing Arts",
+      "value": 11,
+      "title": "Drama ↔ Musicals & Performing Arts: 11 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Drama",
+      "value": 11,
+      "title": "Animation ↔ Drama: 11 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Mystery & Suspense",
+      "value": 10,
+      "title": "Horror ↔ Mystery & Suspense: 10 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Drama",
+      "value": 10,
+      "title": "Classics ↔ Drama: 10 connections"
+    },
+    {
+      "from": "Mystery & Suspense",
+      "to": "Mystery & Suspense",
+      "value": 10,
+      "title": "Mystery & Suspense ↔ Mystery & Suspense: 10 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Kids & Family",
+      "value": 10,
+      "title": "Horror ↔ Kids & Family: 10 connections"
+    },
+    {
+      "from": "Television",
+      "to": "Television",
+      "value": 10,
+      "title": "Television ↔ Television: 10 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Television",
+      "value": 10,
+      "title": "Drama ↔ Television: 10 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Science Fiction & Fantasy",
+      "value": 10,
+      "title": "Animation ↔ Science Fiction & Fantasy: 10 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Television",
+      "value": 9,
+      "title": "Comedy ↔ Television: 9 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Mystery & Suspense",
+      "value": 9,
+      "title": "Action & Adventure ↔ Mystery & Suspense: 9 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Sports",
+      "value": 9,
+      "title": "Action & Adventure ↔ Sports: 9 connections"
+    },
+    {
+      "from": "Music Video & Concerts",
+      "to": "Mystery & Suspense",
+      "value": 9,
+      "title": "Music Video & Concerts ↔ Mystery & Suspense: 9 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Animation",
+      "value": 8,
+      "title": "Animation ↔ Animation: 8 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Science Fiction & Fantasy",
+      "value": 8,
+      "title": "Documentary ↔ Science Fiction & Fantasy: 8 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Mystery & Suspense",
+      "value": 8,
+      "title": "Animation ↔ Mystery & Suspense: 8 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Documentary",
+      "value": 8,
+      "title": "Action & Adventure ↔ Documentary: 8 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Television",
+      "value": 8,
+      "title": "Classics ↔ Television: 8 connections"
+    },
+    {
+      "from": "Musicals & Performing Arts",
+      "to": "Television",
+      "value": 7,
+      "title": "Musicals & Performing Arts ↔ Television: 7 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Music Video & Concerts",
+      "value": 7,
+      "title": "Drama ↔ Music Video & Concerts: 7 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Documentary",
+      "value": 7,
+      "title": "Classics ↔ Documentary: 7 connections"
+    },
+    {
+      "from": "Sports",
+      "to": "Sports",
+      "value": 7,
+      "title": "Sports ↔ Sports: 7 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Classics",
+      "value": 7,
+      "title": "Classics ↔ Classics: 7 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Sports",
+      "value": 7,
+      "title": "Comedy ↔ Sports: 7 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Sports",
+      "value": 7,
+      "title": "Drama ↔ Sports: 7 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Science Fiction & Fantasy",
+      "value": 7,
+      "title": "Classics ↔ Science Fiction & Fantasy: 7 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Television",
+      "value": 6,
+      "title": "Documentary ↔ Television: 6 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Horror",
+      "value": 6,
+      "title": "Horror ↔ Horror: 6 connections"
+    },
+    {
+      "from": "Mystery & Suspense",
+      "to": "Science Fiction & Fantasy",
+      "value": 6,
+      "title": "Mystery & Suspense ↔ Science Fiction & Fantasy: 6 connections"
+    },
+    {
+      "from": "Adult",
+      "to": "Documentary",
+      "value": 6,
+      "title": "Adult ↔ Documentary: 6 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Musicals & Performing Arts",
+      "value": 6,
+      "title": "Classics ↔ Musicals & Performing Arts: 6 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Military & War",
+      "value": 6,
+      "title": "Drama ↔ Military & War: 6 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Comedy",
+      "value": 6,
+      "title": "Animation ↔ Comedy: 6 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Documentary",
+      "value": 6,
+      "title": "Documentary ↔ Documentary: 6 connections"
+    },
+    {
+      "from": "Comedy",
+      "to": "Kids & Family",
+      "value": 5,
+      "title": "Comedy ↔ Kids & Family: 5 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Horror",
+      "value": 5,
+      "title": "Classics ↔ Horror: 5 connections"
+    },
+    {
+      "from": "Science Fiction & Fantasy",
+      "to": "Science Fiction & Fantasy",
+      "value": 5,
+      "title": "Science Fiction & Fantasy ↔ Science Fiction & Fantasy: 5 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Sports",
+      "value": 5,
+      "title": "Animation ↔ Sports: 5 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Music Video & Concerts",
+      "value": 5,
+      "title": "Documentary ↔ Music Video & Concerts: 5 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Mystery & Suspense",
+      "value": 4,
+      "title": "Documentary ↔ Mystery & Suspense: 4 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Horror",
+      "value": 4,
+      "title": "Documentary ↔ Horror: 4 connections"
+    },
+    {
+      "from": "Music Video & Concerts",
+      "to": "Musicals & Performing Arts",
+      "value": 4,
+      "title": "Music Video & Concerts ↔ Musicals & Performing Arts: 4 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Music Video & Concerts",
+      "value": 4,
+      "title": "Action & Adventure ↔ Music Video & Concerts: 4 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Musicals & Performing Arts",
+      "value": 4,
+      "title": "Horror ↔ Musicals & Performing Arts: 4 connections"
+    },
+    {
+      "from": "Music Video & Concerts",
+      "to": "Travel",
+      "value": 4,
+      "title": "Music Video & Concerts ↔ Travel: 4 connections"
+    },
+    {
+      "from": "Mystery & Suspense",
+      "to": "Sports",
+      "value": 4,
+      "title": "Mystery & Suspense ↔ Sports: 4 connections"
+    },
+    {
+      "from": "Adult",
+      "to": "Drama",
+      "value": 4,
+      "title": "Adult ↔ Drama: 4 connections"
+    },
+    {
+      "from": "Art & International",
+      "to": "Drama",
+      "value": 4,
+      "title": "Art & International ↔ Drama: 4 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Animation",
+      "value": 4,
+      "title": "Action & Adventure ↔ Animation: 4 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Horror",
+      "value": 4,
+      "title": "Animation ↔ Horror: 4 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Mystery & Suspense",
+      "value": 4,
+      "title": "Kids & Family ↔ Mystery & Suspense: 4 connections"
+    },
+    {
+      "from": "Sports",
+      "to": "Television",
+      "value": 4,
+      "title": "Sports ↔ Television: 4 connections"
+    },
+    {
+      "from": "General",
+      "to": "Sports",
+      "value": 4,
+      "title": "General ↔ Sports: 4 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Music Video & Concerts",
+      "value": 4,
+      "title": "Animation ↔ Music Video & Concerts: 4 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Sports",
+      "value": 4,
+      "title": "Kids & Family ↔ Sports: 4 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Television",
+      "value": 3,
+      "title": "Horror ↔ Television: 3 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Kids & Family",
+      "value": 3,
+      "title": "Classics ↔ Kids & Family: 3 connections"
+    },
+    {
+      "from": "Musicals & Performing Arts",
+      "to": "Science Fiction & Fantasy",
+      "value": 3,
+      "title": "Musicals & Performing Arts ↔ Science Fiction & Fantasy: 3 connections"
+    },
+    {
+      "from": "Musicals & Performing Arts",
+      "to": "Sports",
+      "value": 3,
+      "title": "Musicals & Performing Arts ↔ Sports: 3 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Musicals & Performing Arts",
+      "value": 3,
+      "title": "Documentary ↔ Musicals & Performing Arts: 3 connections"
+    },
+    {
+      "from": "Adult",
+      "to": "Comedy",
+      "value": 3,
+      "title": "Adult ↔ Comedy: 3 connections"
+    },
+    {
+      "from": "Art & International",
+      "to": "Comedy",
+      "value": 3,
+      "title": "Art & International ↔ Comedy: 3 connections"
+    },
+    {
+      "from": "Mystery & Suspense",
+      "to": "Television",
+      "value": 2,
+      "title": "Mystery & Suspense ↔ Television: 2 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Musicals & Performing Arts",
+      "value": 2,
+      "title": "Action & Adventure ↔ Musicals & Performing Arts: 2 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Sports",
+      "value": 2,
+      "title": "Horror ↔ Sports: 2 connections"
+    },
+    {
+      "from": "Drama",
+      "to": "Religion & Spirituality",
+      "value": 2,
+      "title": "Drama ↔ Religion & Spirituality: 2 connections"
+    },
+    {
+      "from": "General",
+      "to": "Science Fiction & Fantasy",
+      "value": 2,
+      "title": "General ↔ Science Fiction & Fantasy: 2 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Musicals & Performing Arts",
+      "value": 2,
+      "title": "Animation ↔ Musicals & Performing Arts: 2 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Military & War",
+      "value": 2,
+      "title": "Action & Adventure ↔ Military & War: 2 connections"
+    },
+    {
+      "from": "Adult",
+      "to": "Science Fiction & Fantasy",
+      "value": 2,
+      "title": "Adult ↔ Science Fiction & Fantasy: 2 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Military & War",
+      "value": 2,
+      "title": "Animation ↔ Military & War: 2 connections"
+    },
+    {
+      "from": "Musicals & Performing Arts",
+      "to": "Mystery & Suspense",
+      "value": 2,
+      "title": "Musicals & Performing Arts ↔ Mystery & Suspense: 2 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "General",
+      "value": 2,
+      "title": "Classics ↔ General: 2 connections"
+    },
+    {
+      "from": "Action & Adventure",
+      "to": "Classics",
+      "value": 2,
+      "title": "Action & Adventure ↔ Classics: 2 connections"
+    },
+    {
+      "from": "Adult",
+      "to": "Music Video & Concerts",
+      "value": 2,
+      "title": "Adult ↔ Music Video & Concerts: 2 connections"
+    },
+    {
+      "from": "Religion & Spirituality",
+      "to": "Sports",
+      "value": 2,
+      "title": "Religion & Spirituality ↔ Sports: 2 connections"
+    },
+    {
+      "from": "General",
+      "to": "Religion & Spirituality",
+      "value": 2,
+      "title": "General ↔ Religion & Spirituality: 2 connections"
+    },
+    {
+      "from": "Adult",
+      "to": "Adult",
+      "value": 2,
+      "title": "Adult ↔ Adult: 2 connections"
+    },
+    {
+      "from": "Art & International",
+      "to": "Music Video & Concerts",
+      "value": 2,
+      "title": "Art & International ↔ Music Video & Concerts: 2 connections"
+    },
+    {
+      "from": "Music Video & Concerts",
+      "to": "Science Fiction & Fantasy",
+      "value": 2,
+      "title": "Music Video & Concerts ↔ Science Fiction & Fantasy: 2 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Kids & Family",
+      "value": 2,
+      "title": "Animation ↔ Kids & Family: 2 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Science Fiction & Fantasy",
+      "value": 2,
+      "title": "Kids & Family ↔ Science Fiction & Fantasy: 2 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Television",
+      "value": 2,
+      "title": "Kids & Family ↔ Television: 2 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Music Video & Concerts",
+      "value": 2,
+      "title": "Classics ↔ Music Video & Concerts: 2 connections"
+    },
+    {
+      "from": "Military & War",
+      "to": "Mystery & Suspense",
+      "value": 2,
+      "title": "Military & War ↔ Mystery & Suspense: 2 connections"
+    },
+    {
+      "from": "Animation",
+      "to": "Television",
+      "value": 2,
+      "title": "Animation ↔ Television: 2 connections"
+    },
+    {
+      "from": "Science Fiction & Fantasy",
+      "to": "Sports",
+      "value": 2,
+      "title": "Science Fiction & Fantasy ↔ Sports: 2 connections"
+    },
+    {
+      "from": "Classics",
+      "to": "Mystery & Suspense",
+      "value": 2,
+      "title": "Classics ↔ Mystery & Suspense: 2 connections"
+    },
+    {
+      "from": "Documentary",
+      "to": "Kids & Family",
+      "value": 1,
+      "title": "Documentary ↔ Kids & Family: 1 connections"
+    },
+    {
+      "from": "Military & War",
+      "to": "Sports",
+      "value": 1,
+      "title": "Military & War ↔ Sports: 1 connections"
+    },
+    {
+      "from": "Science Fiction & Fantasy",
+      "to": "Television",
+      "value": 1,
+      "title": "Science Fiction & Fantasy ↔ Television: 1 connections"
+    },
+    {
+      "from": "Kids & Family",
+      "to": "Musicals & Performing Arts",
+      "value": 1,
+      "title": "Kids & Family ↔ Musicals & Performing Arts: 1 connections"
+    },
+    {
+      "from": "Art & International",
+      "to": "Documentary",
+      "value": 1,
+      "title": "Art & International ↔ Documentary: 1 connections"
+    },
+    {
+      "from": "Horror",
+      "to": "Science Fiction & Fantasy",
+      "value": 1,
+      "title": "Horror ↔ Science Fiction & Fantasy: 1 connections"
+    }
+  ]
+}

@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentasi AJS Kel 6</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💿</text></svg>">
+    <title>💿 Presentasi AJS Kel 6</title>
     
     <!-- Google Fonts - Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,12 +64,14 @@
                             </div>
                         </div>
                         <div class="university-badge">
+                            <div class="badge-icon">🎓</div>
                             <div class="badge-text">
                                 <span class="program">S-1 Informatika</span>
                                 <span class="university">Telkom University</span>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </section>
 
@@ -330,101 +329,50 @@
                         <!-- Network Visualization -->
                         <div class="network-viz-container">
                             <div class="viz-header">
-                                <h3>Co-Purchase Network - DVD</h3>
+                                <h3>Interactive Co-Purchase Network</h3>
                                 <div class="viz-controls">
-                                    <button class="control-btn active" id="togglePhysics">Physics: ON</button>
-                                    <button class="control-btn" id="resetFilters">Reset Filters</button>
                                     <button class="control-btn" id="resetZoom">Reset View</button>
-                                </div>
-                            </div>
-                            <div class="viz-legend viz-legend-floating">
-                                <span class="legend-title">Genre:</span>
-                                <div class="legend-items-scroll" id="legend-items">
-                                    <!-- Populated by JS -->
+                                    <button class="control-btn" id="togglePhysics">Toggle Physics</button>
                                 </div>
                             </div>
                             <div id="network-graph"></div>
-                            <div class="zoom-controls">
-                                <button class="zoom-btn" id="zoomIn">+</button>
-                                <button class="zoom-btn" id="zoomOut">−</button>
+                            <div class="viz-legend">
+                                <span class="legend-title">Genre:</span>
+                                <div class="legend-items" id="legend-items">
+                                    <!-- Populated by JS -->
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Side Panel -->
+                        <!-- Statistics Panel -->
                         <div class="stats-panel">
-                            <!-- Node Detail Card -->
-                            <div class="node-detail-card" id="node-detail-card">
-                                <h3>📍 Node Detail</h3>
-                                <div class="node-search-container">
-                                    <input type="text" id="nodeSearchInput" class="node-search-input" placeholder="Search node by name or ID...">
-                                    <div class="node-search-results" id="nodeSearchResults"></div>
+                            <h3>📊 Network Statistics</h3>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span class="stat-label">Total Nodes</span>
+                                    <span class="stat-value" id="stat-nodes">-</span>
                                 </div>
-                                <div class="node-detail-content" id="node-detail-content">
-                                    <p class="placeholder-text">Click a node to view details</p>
+                                <div class="stat-row">
+                                    <span class="stat-label">Total Edges</span>
+                                    <span class="stat-value" id="stat-edges">-</span>
                                 </div>
-                            </div>
-                            
-                            <!-- Network Statistics Card -->
-                            <div class="network-stats-card">
-                                <h3>📊 Network Statistics</h3>
-                                <div class="stats-grid">
-                                    <div class="stat-row">
-                                        <span class="stat-label">Total Nodes</span>
-                                        <span class="stat-value" id="stat-nodes">503</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Total Edges</span>
-                                        <span class="stat-value" id="stat-edges">922</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Density</span>
-                                        <span class="stat-value" id="stat-density">0.003651</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Avg In-Degree</span>
-                                        <span class="stat-value" id="stat-in-degree">1.833</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Avg Out-Degree</span>
-                                        <span class="stat-value" id="stat-out-degree">1.833</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Min Degree</span>
-                                        <span class="stat-value" id="stat-min-deg">1</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Max Degree</span>
-                                        <span class="stat-value" id="stat-max-deg">11</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Is Directed</span>
-                                        <span class="stat-value stat-true">True</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Connected Components</span>
-                                        <span class="stat-value">162</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Largest Component</span>
-                                        <span class="stat-value">13</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Diameter</span>
-                                        <span class="stat-value">3</span>
-                                    </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Communities</span>
+                                    <span class="stat-value" id="stat-communities">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Avg. Degree</span>
+                                    <span class="stat-value" id="stat-degree">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Density</span>
+                                    <span class="stat-value" id="stat-density">-</span>
                                 </div>
                             </div>
                             
-                            <!-- Genre Statistics Card -->
-                            <div class="genre-stats-card">
-                                <h3>📊 Genre Statistics</h3>
-                                <div class="genre-total">Total Genres: <span id="total-genres">0</span></div>
-                                <div class="genre-chart-container">
-                                    <canvas id="genre-pie-chart" width="160" height="160"></canvas>
-                                </div>
-                                <div class="genre-list" id="genre-list">
-                                    <!-- Populated by JS -->
-                                </div>
+                            <h4>🏆 Top Influential Nodes</h4>
+                            <div class="influential-list" id="influential-nodes">
+                                <!-- Populated by JS -->
                             </div>
                         </div>
                     </div>
@@ -463,15 +411,22 @@
                                 <div class="keypoint-item">
                                     <div class="keypoint-icon">📊</div>
                                     <div class="keypoint-content">
-                                        <h4>Dominasi Mikro-Komunitas</h4>
-                                        <p>Komunitas terbesar (ID 56) hanya 13 produk. Mayoritas komunitas &lt;5 node, menunjukkan pola ko-pembelian yang sangat eksklusif.</p>
+                                        <h4>Louvain Algorithm</h4>
+                                        <p>Deteksi komunitas menggunakan algoritma Louvain untuk optimasi modularitas</p>
+                                    </div>
+                                </div>
+                                <div class="keypoint-item">
+                                    <div class="keypoint-icon">🎯</div>
+                                    <div class="keypoint-content">
+                                        <h4>162 Communities</h4>
+                                        <p>Terdeteksi 162 komunitas unik dalam jaringan DVD</p>
                                     </div>
                                 </div>
                                 <div class="keypoint-item">
                                     <div class="keypoint-icon">🔗</div>
                                     <div class="keypoint-content">
-                                        <h4>Heterogenitas Genre</h4>
-                                        <p>Komunitas kecil tapi beragam genre. Komunitas 56: 6 genre dalam 13 produk. Amazon menghubungkan produk lintas genre dengan relevansi kontekstual.</p>
+                                        <h4>Genre Clustering</h4>
+                                        <p>Produk dengan genre serupa cenderung membentuk cluster yang sama</p>
                                     </div>
                                 </div>
                             </div>
@@ -480,6 +435,32 @@
                                 <span class="btn-icon">📈</span>
                                 <span>View Community Statistics</span>
                             </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Community Statistics Modal -->
+                <div class="modal-overlay" id="communityModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>📊 Community Statistics</h3>
+                            <button class="modal-close" id="closeCommunityModal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="styled-table modal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Community</th>
+                                        <th>Nodes</th>
+                                        <th>Genres</th>
+                                        <th>Best Node</th>
+                                        <th>Degree</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="communityStatsTable">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -730,7 +711,7 @@
                                 <div class="contact-icon">🔗</div>
                                 <div class="contact-info">
                                     <span class="contact-label">Repository</span>
-                                    <a href="https://github.com/Otachiking/AJS_AmazonCoPurchases" target="_blank" class="contact-value contact-link">github.com/Otachiking/AJS_AmazonCoPurchases</a>
+                                    <span class="contact-value">github.com/tubes-ajs-kel6</span>
                                 </div>
                             </div>
                         </div>
@@ -747,68 +728,15 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </section>
             
         </div>
     </div>
 
-    <!-- Community Statistics Modal (outside slides-container for fixed positioning) -->
-    <div class="modal-overlay" id="communityModal">
-        <div class="modal-content modal-large">
-            <div class="modal-header">
-                <h3>📊 Community Statistics</h3>
-                <button class="modal-close" id="closeCommunityModal">&times;</button>
-            </div>
-            <div class="modal-toolbar">
-                <div class="modal-tabs">
-                    <button class="modal-tab active" data-tab="summary">Summary</button>
-                    <button class="modal-tab" data-tab="details">Details</button>
-                </div>
-                <div class="modal-search">
-                    <input type="text" id="communitySearch" placeholder="Search...">
-                </div>
-            </div>
-            <div class="modal-body">
-                <!-- Summary Tab -->
-                <div class="tab-content active" id="tab-summary">
-                    <table class="styled-table modal-table sortable-table" id="summaryTable">
-                        <thead>
-                            <tr>
-                                <th data-sort="community">Community ▲▼</th>
-                                <th data-sort="nodes">Nodes ▲▼</th>
-                                <th data-sort="genres">Genres ▲▼</th>
-                                <th data-sort="best">Best Product ▲▼</th>
-                                <th data-sort="members">Members</th>
-                            </tr>
-                        </thead>
-                        <tbody id="summaryTableBody">
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Details Tab -->
-                <div class="tab-content" id="tab-details">
-                    <table class="styled-table modal-table sortable-table" id="detailsTable">
-                        <thead>
-                            <tr>
-                                <th data-sort="community">Community ▲▼</th>
-                                <th data-sort="id">Product ID ▲▼</th>
-                                <th data-sort="name">Product Name ▲▼</th>
-                            </tr>
-                        </thead>
-                        <tbody id="detailsTableBody">
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
-    <script src="data.js"></script>
     <script src="presentation.js"></script>
 </body>
 </html>

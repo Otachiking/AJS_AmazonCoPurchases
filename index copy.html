@@ -493,7 +493,7 @@
                         <h2>Influential Products Analysis</h2>
                     </div>
                     
-                    <div class="content-grid two-column-wide">
+                    <div class="content-grid two-col">
                         <!-- Key Insights -->
                         <div class="insights-panel">
                             <h3>🎯 Key Insights</h3>
@@ -503,33 +503,23 @@
                                     <div class="insight-icon">🔝</div>
                                     <div class="insight-content">
                                         <h4>High Degree Centrality</h4>
-                                        <p>Node dengan degree tinggi menjadi <strong>hub</strong> dalam jaringan, menghubungkan banyak produk lain melalui co-purchase.</p>
+                                        <p>Node dengan degree tinggi menjadi <strong>hub</strong> dalam jaringan. Produk ini memiliki banyak koneksi ke produk lain, membuatnya menjadi titik referensi penting.</p>
                                     </div>
                                 </div>
                                 <div class="insight-card">
                                     <div class="insight-icon">📈</div>
                                     <div class="insight-content">
                                         <h4>PageRank Score</h4>
-                                        <p>Produk dengan PageRank tinggi memiliki <strong>influence cascade</strong> - rekomendasi mereka lebih dipercaya.</p>
+                                        <p>Produk dengan PageRank tinggi tidak hanya memiliki banyak link, tetapi link dari produk <strong>berkualitas tinggi</strong>. Ini menunjukkan influence cascade.</p>
                                     </div>
                                 </div>
                                 <div class="insight-card">
                                     <div class="insight-icon">🏆</div>
                                     <div class="insight-content">
                                         <h4>K-Core Analysis</h4>
-                                        <p>Node dalam k-core tinggi berada di <strong>inti jaringan</strong> dengan konektivitas kuat.</p>
+                                        <p>Node yang berada dalam k-core tinggi menunjukkan mereka berada di <strong>inti jaringan</strong> yang paling terkoneksi.</p>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="metric-explanation">
-                                <h4>📐 Metrics Used</h4>
-                                <ul>
-                                    <li><strong>In-Degree:</strong> Berapa produk yang merekomendasikan produk ini</li>
-                                    <li><strong>Out-Degree:</strong> Berapa produk yang direkomendasikan oleh produk ini</li>
-                                    <li><strong>PageRank:</strong> Importance score berdasarkan link structure</li>
-                                    <li><strong>K-Core:</strong> Level of network core membership</li>
-                                </ul>
                             </div>
                         </div>
                         
@@ -566,17 +556,15 @@
                     </div>
                     
                     <div class="recommendation-layout">
-                        <!-- Pattern Visualization -->
+                        <!-- Co-Purchase Network Graph (from graph_data.json) -->
                         <div class="pattern-viz">
-                            <div class="genre-graph-container">
-                                <div class="viz-header">
-                                    <h3>Genre Co-Purchase Network</h3>
-                                    <div class="viz-controls">
-                                        <button class="control-btn" id="resetGenreZoom">Reset View</button>
-                                    </div>
+                            <div class="genre-graph-card">
+                                <div class="pattern-header">
+                                    <span class="pattern-icon">🕸️</span>
+                                    <h3>Co-Purchase Network</h3>
                                 </div>
-                                <div id="genre-graph"></div>
-                                <p class="viz-caption">Node size = Total connections, Edge thickness = Co-purchase frequency</p>
+                                <div id="recommendation-network" class="genre-graph-container"></div>
+                                <p class="pattern-desc">Visualisasi jaringan co-purchase DVD. Node diwarnai berdasarkan komunitas.</p>
                             </div>
                         </div>
                         
