@@ -1747,8 +1747,8 @@ function initDiffusionGraph(graphType = 'dvd') {
             label: node.label || node.id,
             title: `${node.label || node.id}\\nClick to select as seed`,
             color: { 
-                background: GENRE_COLORS[node.id] || '#94A3B8', 
-                border: GENRE_COLORS[node.id] || '#64748B' 
+                background: '#CBD5E1', 
+                border: '#94A3B8' 
             },
             size: 20 + Math.sqrt((node.value || 1) / 73) * 15,
             font: { size: 12, color: '#333' }
@@ -1911,14 +1911,9 @@ function resetDiffusion() {
     const allNodeIds = state.diffusionNodes.getIds();
     allNodeIds.forEach(nodeId => {
         const isSeed = state.selectedSeeds.includes(nodeId);
-        const nodeInfo = state.diffusionNodeInfo?.[nodeId];
         
-        // For genre graphs, restore original color
-        let defaultColor = { background: '#CBD5E1', border: '#94A3B8' };
-        if (currentDiffusionGraph !== 'dvd' && nodeInfo) {
-            const genreColor = GENRE_COLORS[nodeId] || '#94A3B8';
-            defaultColor = { background: genreColor, border: genreColor };
-        }
+        // Always use grey color for reset (same as initial state)
+        const defaultColor = { background: '#CBD5E1', border: '#94A3B8' };
         
         state.diffusionNodes.update({
             id: nodeId,

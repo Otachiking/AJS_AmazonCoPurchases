@@ -151,13 +151,13 @@ p {
 }
 
 .nav-icon {
-    font-size: 12px;
+    font-size: 14px;
     color: rgba(0, 0, 0, 0.3);
     transition: var(--transition-normal);
 }
 
 .nav-icon.material-symbols-outlined {
-    font-size: 12px;
+    font-size: 14px;
     font-variation-settings:
         'FILL' 0,
         'wght' 400,
@@ -2342,15 +2342,15 @@ p {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 16px;
+    padding: 8px;
     background: var(--gradient-soft);
     border-top: 1px solid var(--border-color);
-    font-size: 0.9rem;
+    font-size: 14px;
     color: var(--text-secondary);
 }
 
 .instruction-icon {
-    font-size: 1.25rem;
+    font-size: 14px;
 }
 
 .diffusion-panel {
