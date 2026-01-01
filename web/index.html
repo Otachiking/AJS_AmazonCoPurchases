@@ -16,21 +16,55 @@
     <!-- Vis.js for Network Visualization -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css">
     
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Dots -->
+    
+    <!-- Navigation Dots with Icons -->
     <nav class="nav-dots-container">
-        <span class="nav-dot active" data-slide="0"></span>
-        <span class="nav-dot" data-slide="1"></span>
-        <span class="nav-dot" data-slide="2"></span>
-        <span class="nav-dot" data-slide="3"></span>
-        <span class="nav-dot" data-slide="4"></span>
-        <span class="nav-dot" data-slide="5"></span>
-        <span class="nav-dot" data-slide="6"></span>
-        <span class="nav-dot" data-slide="7"></span>
-        <span class="nav-dot" data-slide="8"></span>
-        <span class="nav-dot" data-slide="9"></span>
+        <div class="nav-item active" data-slide="0">
+            <span class="nav-icon material-symbols-outlined">home</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="1">
+            <span class="nav-icon material-symbols-outlined">database</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="2">
+            <span class="nav-icon material-symbols-outlined">book_2</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="3">
+            <span class="nav-icon material-symbols-outlined">manufacturing</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="4">
+            <span class="nav-icon material-symbols-outlined">hub</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="5">
+            <span class="nav-icon material-symbols-outlined">groups</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="6">
+            <span class="nav-icon material-symbols-outlined">star</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="7">
+            <span class="nav-icon material-symbols-outlined">thumb_up</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="8">
+            <span class="nav-icon material-symbols-outlined">campaign</span>
+            <span class="nav-dot"></span>
+        </div>
+        <div class="nav-item" data-slide="9">
+            <span class="nav-icon material-symbols-outlined">waving_hand</span>
+            <span class="nav-dot"></span>
+        </div>
     </nav>
 
     <!-- Slides Container -->
@@ -333,8 +367,8 @@
                                 <h3>Co-Purchase Network - DVD</h3>
                                 <div class="viz-controls">
                                     <button class="control-btn active" id="togglePhysics">Physics: ON</button>
-                                    <button class="control-btn" id="resetFilters">Reset Filters</button>
-                                    <button class="control-btn" id="resetZoom">Reset View</button>
+                                    <button class="control-btn" id="resetFilters">Clear Filters</button>
+                                    <button class="control-btn" id="resetZoom">⟲</button>
                                 </div>
                             </div>
                             <div class="viz-legend viz-legend-floating">
@@ -445,8 +479,9 @@
                             <div class="viz-header">
                                 <h3>Community Clusters Visualization</h3>
                                 <div class="viz-controls">
-                                    <button class="control-btn" id="resetCommunityZoom">Reset View</button>
-                                    <button class="control-btn" id="highlightCommunities">Highlight Clusters</button>
+                                    <input type="number" id="communitySearchInput" class="community-search-input" placeholder="Community ID..." min="0">
+                                    <button class="control-btn" id="searchCommunity">🔍 Find</button>
+                                    <button class="control-btn" id="resetCommunityZoom">⟲</button>
                                 </div>
                             </div>
                             <div id="community-graph"></div>
@@ -568,15 +603,19 @@
                     <div class="recommendation-layout">
                         <!-- Pattern Visualization -->
                         <div class="pattern-viz">
-                            <div class="genre-graph-container">
+                            <div class="genre-viz-container">
                                 <div class="viz-header">
                                     <h3>Genre Co-Purchase Network</h3>
                                     <div class="viz-controls">
-                                        <button class="control-btn" id="resetGenreZoom">Reset View</button>
+                                        <button class="control-btn active" id="genreDefault">Top 10 + Others</button>
+                                        <button class="control-btn" id="genreAll">All Genres</button>
+                                        <button class="control-btn" id="resetGenreZoom">⟲</button>
                                     </div>
                                 </div>
                                 <div id="genre-graph"></div>
-                                <p class="viz-caption">Node size = Total connections, Edge thickness = Co-purchase frequency</p>
+                                <div class="viz-legend">
+                                    <span class="legend-title">Node size = Total connections, Edge thickness = Co-purchase frequency</span>
+                                </div>
                             </div>
                         </div>
                         
@@ -634,8 +673,8 @@
                                 <h3>Interactive Cascade Simulation</h3>
                                 <div class="viz-controls">
                                     <button class="control-btn primary" id="startDiffusion">▶ Start Cascade</button>
-                                    <button class="control-btn" id="resetDiffusion">↺ Reset</button>
                                     <button class="control-btn" id="clearSeeds">Clear Seeds</button>
+                                    <button class="control-btn" id="resetDiffusion">⟲</button>
                                 </div>
                             </div>
                             <div id="diffusion-graph"></div>
@@ -650,9 +689,18 @@
                             <h3>🎮 Simulation Controls</h3>
                             
                             <div class="control-group">
+                                <label>Input Graph</label>
+                                <select id="diffusionGraph" class="styled-select">
+                                    <option value="dvd">DVD Network (Full)</option>
+                                    <option value="genre-default">Genre Graph (Top 10 + Others)</option>
+                                    <option value="genre-all">Genre Graph (All Genres)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
                                 <label>Diffusion Model</label>
                                 <select id="diffusionModel" class="styled-select">
-                                    <option value="ic">Independent Cascade (IC)</option>
+                                    <option value="ic" selected>Independent Cascade (IC)</option>
                                     <option value="lt">Linear Threshold (LT)</option>
                                 </select>
                             </div>
@@ -719,13 +767,6 @@
                         <p class="thankyou-subtitle">Thank you for your attention</p>
                         
                         <div class="contact-cards">
-                            <div class="contact-card">
-                                <div class="contact-icon">📧</div>
-                                <div class="contact-info">
-                                    <span class="contact-label">Email</span>
-                                    <span class="contact-value">tubes.ajs@telkomuniversity.ac.id</span>
-                                </div>
-                            </div>
                             <div class="contact-card">
                                 <div class="contact-icon">🔗</div>
                                 <div class="contact-info">

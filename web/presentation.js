@@ -270,8 +270,8 @@ function goToSlide(index) {
     const wrapper = document.querySelector('.slides-wrapper');
     wrapper.style.transform = `translateX(-${index * 100}vw)`;
     
-    document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
+    document.querySelectorAll('.nav-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
     });
     
     document.querySelectorAll('.slide').forEach((slide, i) => {
@@ -289,7 +289,9 @@ function goToSlide(index) {
         populateInfluentialTable();
     }
     if (index === 7 && !state.genreNetworkInstance) {
-        initGenreGraph();
+        initGenreGraph('default');
+        // Setup controls only once
+        setupGenreGraphControlsOnce();
     }
     if (index === 8 && !state.diffusionNetworkInstance) {
         initDiffusionGraph();
@@ -342,9 +344,9 @@ function initKeyboardNavigation() {
 // ============================================
 
 function initClickNavigation() {
-    document.querySelectorAll('.nav-dot').forEach((dot) => {
-        dot.addEventListener('click', () => {
-            const slideIndex = parseInt(dot.dataset.slide);
+    document.querySelectorAll('.nav-item').forEach((item) => {
+        item.addEventListener('click', () => {
+            const slideIndex = parseInt(item.dataset.slide);
             goToSlide(slideIndex);
         });
     });
@@ -916,8 +918,15 @@ function setupNetworkControls() {
     
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            if (state.networkInstance) {
-                state.networkInstance.fit();
+            if (state.networkInstance && physicsBtn) {
+                // Programmatically click physics button twice to reset
+                // First click: toggle OFF
+                physicsBtn.click();
+                setTimeout(() => {
+                    // Second click: toggle back ON
+                    physicsBtn.click();
+                    state.networkInstance.fit({ animation: { duration: 500 } });
+                }, 150);
             }
         });
     }
@@ -1033,14 +1042,48 @@ function initCommunityGraph() {
 function setupCommunityControls() {
     document.getElementById('resetCommunityZoom')?.addEventListener('click', () => {
         if (state.communityNetworkInstance) {
-            state.communityNetworkInstance.fit({ animation: { duration: 500 } });
+            // Toggle physics OFF then ON (community has no physics button, so direct toggle)
+            state.communityNetworkInstance.setOptions({ physics: { enabled: false } });
+            setTimeout(() => {
+                state.communityNetworkInstance.setOptions({ physics: { enabled: false } });
+            }, 50);
+            setTimeout(() => {
+                state.communityNetworkInstance.setOptions({ physics: { enabled: true } });
+                state.communityNetworkInstance.fit({ animation: { duration: 500 } });
+            }, 200);
         }
     });
     
-    document.getElementById('highlightCommunities')?.addEventListener('click', () => {
-        if (state.communityNetworkInstance) {
-            state.communityNetworkInstance.fit({ animation: { duration: 500 } });
+    // Community Search functionality
+    const searchInput = document.getElementById('communitySearchInput');
+    const searchBtn = document.getElementById('searchCommunity');
+    
+    const searchCommunity = () => {
+        const communityId = parseInt(searchInput?.value);
+        if (isNaN(communityId) || !state.communityNetworkInstance) return;
+        
+        // Find all nodes in this community
+        const nodesInCommunity = state.nodesData?.nodes?.filter(n => n.community === communityId);
+        
+        if (!nodesInCommunity || nodesInCommunity.length === 0) {
+            alert(`Community ${communityId} not found`);
+            return;
         }
+        
+        // Get node IDs
+        const nodeIds = nodesInCommunity.map(n => n.id);
+        
+        // Select and focus on these nodes
+        state.communityNetworkInstance.selectNodes(nodeIds);
+        state.communityNetworkInstance.fit({
+            nodes: nodeIds,
+            animation: { duration: 500, easingFunction: 'easeInOutQuad' }
+        });
+    };
+    
+    searchBtn?.addEventListener('click', searchCommunity);
+    searchInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchCommunity();
     });
     
     // Modal controls
@@ -1409,9 +1452,24 @@ function populateInfluentialTable() {
 // GENRE GRAPH (Slide 8)
 // ============================================
 
-function initGenreGraph() {
+// Top 10 genres by DVD count (from data.js)
+// Drama:73, Comedy:69, Music Video & Concerts:46, Kids & Family:40,
+// Action & Adventure:39, Horror:36, Mystery & Suspense:35,
+// Television:24, Documentary:23, Science Fiction & Fantasy:23
+const TOP_GENRES = [
+    'Drama', 'Comedy', 'Music Video & Concerts', 'Kids & Family',
+    'Action & Adventure', 'Horror', 'Mystery & Suspense', 
+    'Television', 'Documentary', 'Science Fiction & Fantasy'
+];
+
+// Genre graph state
+let genreGraphMode = 'default'; // 'default' or 'all'
+
+function initGenreGraph(mode = 'default') {
     const container = document.getElementById('genre-graph');
     if (!container) return;
+    
+    genreGraphMode = mode;
     
     // Use embedded GENRE_GRAPH_DATA instead of fetching (avoids CORS issues)
     if (typeof GENRE_GRAPH_DATA === 'undefined') {
@@ -1422,29 +1480,100 @@ function initGenreGraph() {
     
     const genreData = GENRE_GRAPH_DATA;
     
-    // Use nodes and edges directly from the new format
-    const visNodes = genreData.nodes.map(node => ({
-        id: node.id,
-        label: node.label.length > 15 ? node.label.substring(0, 12) + '...' : node.label,
-        title: node.title,
-        color: node.color || GENRE_COLORS[node.id] || GENRE_COLORS['Other'],
-        size: 10 + (node.value || 1),
-        font: { size: 10, color: '#333' }
-    }));
+    // Filter nodes based on mode
+    let filteredNodes = genreData.nodes;
+    let filteredEdges = genreData.edges;
+    
+    if (mode === 'default') {
+        // Get Top 10 genres
+        const top10Nodes = genreData.nodes.filter(node => TOP_GENRES.includes(node.id));
+        
+        // Calculate Others value (sum of all non-top-10 genres)
+        const otherGenres = genreData.nodes.filter(node => !TOP_GENRES.includes(node.id));
+        const othersValue = otherGenres.reduce((sum, node) => sum + (node.value || 0), 0);
+        
+        // Create Others node
+        const othersNode = {
+            id: 'Others',
+            label: 'Others',
+            value: othersValue,
+            title: `Others: ${othersValue} DVDs (${otherGenres.length} genres)`,
+            color: '#94A3B8'
+        };
+        
+        filteredNodes = [...top10Nodes, othersNode];
+        
+        // Aggregate edges for Others
+        const otherGenreIds = new Set(otherGenres.map(n => n.id));
+        const top10Ids = new Set(TOP_GENRES);
+        
+        // Build edge map for aggregation
+        const edgeMap = new Map();
+        
+        genreData.edges.forEach(edge => {
+            let from = top10Ids.has(edge.from) ? edge.from : (otherGenreIds.has(edge.from) ? 'Others' : null);
+            let to = top10Ids.has(edge.to) ? edge.to : (otherGenreIds.has(edge.to) ? 'Others' : null);
+            
+            if (from && to) {
+                // Normalize edge key (alphabetically sorted)
+                const key = [from, to].sort().join('|');
+                if (edgeMap.has(key)) {
+                    edgeMap.get(key).value += edge.value || 1;
+                } else {
+                    edgeMap.set(key, { from, to, value: edge.value || 1 });
+                }
+            }
+        });
+        
+        filteredEdges = Array.from(edgeMap.values()).map(e => ({
+            from: e.from,
+            to: e.to,
+            value: e.value,
+            title: `${e.from} ↔ ${e.to}: ${e.value} connections`
+        }));
+    }
+    
+    const nodeIds = new Set(filteredNodes.map(n => n.id));
+    const nodeCount = filteredNodes.length;
+    
+    // Find max value for node size normalization
+    const maxNodeValue = Math.max(...filteredNodes.map(n => n.value || 1));
+    
+    // Create vis nodes with circular layout positions
+    const visNodes = filteredNodes.map((node, index) => {
+        // Calculate circular position - start from top (-PI/2)
+        const angle = (2 * Math.PI * index) / nodeCount - Math.PI / 2;
+        const radius = 250;
+        
+        // Reduced size sensitivity: base 20, max additional 15
+        const normalizedSize = 20 + Math.sqrt((node.value || 1) / maxNodeValue) * 15;
+        
+        return {
+            id: node.id,
+            label: node.label,
+            title: node.title,
+            color: GENRE_COLORS[node.id] || GENRE_COLORS['Other'],
+            size: normalizedSize,
+            font: { size: 14, color: '#333', face: 'Plus Jakarta Sans' },
+            x: Math.cos(angle) * radius,
+            y: Math.sin(angle) * radius
+        };
+    });
     
     // Find max value for edge width normalization
-    const maxValue = Math.max(...genreData.edges.map(e => e.value || 1));
+    const maxValue = Math.max(...filteredEdges.map(e => e.value || 1));
     
-    // Create edges
-    const visEdges = genreData.edges
+    // Create edges (only between visible nodes, filter small connections)
+    const visEdges = filteredEdges
+        .filter(edge => nodeIds.has(edge.from) && nodeIds.has(edge.to))
         .filter(edge => (edge.value || 1) >= 3)
         .map((edge, idx) => ({
             id: idx,
             from: edge.from,
             to: edge.to,
-            width: 1 + ((edge.value || 1) / maxValue) * 8,
+            width: 1 + Math.sqrt((edge.value || 1) / maxValue) * 6,
             title: edge.title || `${edge.from} ↔ ${edge.to}: ${edge.value} connections`,
-            color: { color: '#94A3B8', opacity: 0.5 + ((edge.value || 1) / maxValue) * 0.5 }
+            color: { color: '#64748B', opacity: 0.3 + ((edge.value || 1) / maxValue) * 0.5 }
         }));
     
     const options = {
@@ -1453,66 +1582,200 @@ function initGenreGraph() {
         width: '100%',
         nodes: {
             shape: 'dot',
-            font: { face: 'Plus Jakarta Sans', size: 10 },
+            font: { face: 'Plus Jakarta Sans', size: 14 },
             borderWidth: 2
         },
         edges: {
             smooth: { type: 'continuous' }
         },
         physics: {
-            enabled: true,
-            stabilization: { enabled: true, iterations: 150 },
-            barnesHut: {
-                gravitationalConstant: -2000,
-                centralGravity: 0.5,
-                springLength: 150
-            }
+            enabled: false // Static circular layout
         },
-        interaction: { hover: true, tooltipDelay: 100 }
+        interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true }
     };
+    
+    // Destroy previous instance if exists
+    if (state.genreNetworkInstance) {
+        state.genreNetworkInstance.destroy();
+    }
     
     state.genreNetworkInstance = new vis.Network(
         container,
         { nodes: new vis.DataSet(visNodes), edges: new vis.DataSet(visEdges) },
         options
     );
+    
+    // Update button states
+    updateGenreButtonStates();
+}
+
+// Setup controls only once (called from goToSlide)
+function setupGenreGraphControlsOnce() {
+    // Reset zoom button - just fit to view (physics is disabled for static layout)
+    document.getElementById('resetGenreZoom')?.addEventListener('click', () => {
+        if (state.genreNetworkInstance) {
+            state.genreNetworkInstance.fit({ animation: { duration: 500 } });
+        }
+    });
+    
+    // Default view button (Top 10 + Others)
+    document.getElementById('genreDefault')?.addEventListener('click', () => {
+        if (genreGraphMode !== 'default') {
+            initGenreGraph('default');
+        }
+    });
+    
+    // All genres button
+    document.getElementById('genreAll')?.addEventListener('click', () => {
+        if (genreGraphMode !== 'all') {
+            initGenreGraph('all');
+        }
+    });
+}
+
+function updateGenreButtonStates() {
+    const defaultBtn = document.getElementById('genreDefault');
+    const allBtn = document.getElementById('genreAll');
+    
+    if (defaultBtn && allBtn) {
+        if (genreGraphMode === 'default') {
+            defaultBtn.classList.add('active');
+            allBtn.classList.remove('active');
+        } else {
+            defaultBtn.classList.remove('active');
+            allBtn.classList.add('active');
+        }
+    }
 }
 
 // ============================================
 // DIFFUSION SIMULATION (Slide 9)
 // ============================================
 
-function initDiffusionGraph() {
+// Store current diffusion graph type
+let currentDiffusionGraph = 'dvd';
+
+function initDiffusionGraph(graphType = 'dvd') {
     const container = document.getElementById('diffusion-graph');
     if (!container) return;
     
-    if (!state.nodesData) {
-        loadGraphData();
+    currentDiffusionGraph = graphType;
+    
+    // Clear previous state
+    state.selectedSeeds = [];
+    state.activatedNodes = new Set();
+    state.diffusionStep = 0;
+    
+    let nodes, edges;
+    
+    if (graphType === 'dvd') {
+        // DVD Network - use main graph data
+        if (!state.nodesData) {
+            loadGraphData();
+        }
+        if (!state.nodesData) return;
+        
+        nodes = state.nodesData.nodes.map(node => ({
+            id: node.id,
+            label: '',
+            title: `${node.title}\\nClick to select as seed`,
+            color: { background: '#CBD5E1', border: '#94A3B8' },
+            size: 8
+        }));
+        
+        edges = state.edgesData.edges.map((edge, idx) => ({
+            id: idx,
+            from: edge.source,
+            to: edge.target,
+            arrows: 'to',
+            color: { color: '#E2E8F0', opacity: 0.5 }
+        }));
+        
+        // Store node info for seed list
+        state.diffusionNodeInfo = {};
+        state.nodesData.nodes.forEach(n => {
+            state.diffusionNodeInfo[n.id] = { title: n.title };
+        });
+        
+    } else {
+        // Genre Graph - use genre correlation data
+        if (typeof GENRE_GRAPH_DATA === 'undefined') {
+            console.error('GENRE_GRAPH_DATA not found');
+            return;
+        }
+        
+        let genreNodes = GENRE_GRAPH_DATA.nodes;
+        let genreEdges = GENRE_GRAPH_DATA.edges;
+        
+        if (graphType === 'genre-default') {
+            // Top 10 + Others
+            const top10Nodes = GENRE_GRAPH_DATA.nodes.filter(n => TOP_GENRES.includes(n.id));
+            const otherGenres = GENRE_GRAPH_DATA.nodes.filter(n => !TOP_GENRES.includes(n.id));
+            const othersValue = otherGenres.reduce((sum, n) => sum + (n.value || 0), 0);
+            
+            genreNodes = [...top10Nodes, {
+                id: 'Others',
+                label: 'Others',
+                value: othersValue,
+                title: `Others: ${othersValue} DVDs`
+            }];
+            
+            // Aggregate edges
+            const otherGenreIds = new Set(otherGenres.map(n => n.id));
+            const top10Ids = new Set(TOP_GENRES);
+            const edgeMap = new Map();
+            
+            GENRE_GRAPH_DATA.edges.forEach(edge => {
+                let from = top10Ids.has(edge.from) ? edge.from : (otherGenreIds.has(edge.from) ? 'Others' : null);
+                let to = top10Ids.has(edge.to) ? edge.to : (otherGenreIds.has(edge.to) ? 'Others' : null);
+                
+                if (from && to) {
+                    const key = [from, to].sort().join('|');
+                    if (edgeMap.has(key)) {
+                        edgeMap.get(key).value += edge.value || 1;
+                    } else {
+                        edgeMap.set(key, { from, to, value: edge.value || 1 });
+                    }
+                }
+            });
+            
+            genreEdges = Array.from(edgeMap.values());
+        }
+        
+        nodes = genreNodes.map(node => ({
+            id: node.id,
+            label: node.label || node.id,
+            title: `${node.label || node.id}\\nClick to select as seed`,
+            color: { 
+                background: GENRE_COLORS[node.id] || '#94A3B8', 
+                border: GENRE_COLORS[node.id] || '#64748B' 
+            },
+            size: 20 + Math.sqrt((node.value || 1) / 73) * 15,
+            font: { size: 12, color: '#333' }
+        }));
+        
+        edges = genreEdges.map((edge, idx) => ({
+            id: idx,
+            from: edge.from,
+            to: edge.to,
+            width: Math.max(1, Math.sqrt((edge.value || 1) / 10) * 2),
+            color: { color: '#94A3B8', opacity: 0.5 }
+        }));
+        
+        // Store node info for seed list
+        state.diffusionNodeInfo = {};
+        genreNodes.forEach(n => {
+            state.diffusionNodeInfo[n.id] = { title: n.label || n.id };
+        });
     }
-    if (!state.nodesData) return;
     
-    const nodes = state.nodesData.nodes;
-    const edges = state.edgesData.edges;
+    const nodesDataSet = new vis.DataSet(nodes);
+    const edgesDataSet = new vis.DataSet(edges);
     
-    const visNodes = nodes.map(node => ({
-        id: node.id,
-        label: '',
-        title: `${node.title}\nClick to select as seed`,
-        color: { background: '#CBD5E1', border: '#94A3B8' },
-        group: 'inactive',
-        size: 8
-    }));
-    
-    const visEdges = edges.map((edge, idx) => ({
-        id: idx,
-        from: edge.source,
-        to: edge.target,
-        arrows: 'to',
-        color: { color: '#E2E8F0', opacity: 0.5 }
-    }));
-    
-    const nodesDataSet = new vis.DataSet(visNodes);
-    const edgesDataSet = new vis.DataSet(visEdges);
+    // Different physics settings based on graph type
+    const physicsSettings = graphType === 'dvd' 
+        ? { enabled: true, stabilization: { enabled: true, iterations: 150 }, barnesHut: { gravitationalConstant: -2500, centralGravity: 0.4, springLength: 100 } }
+        : { enabled: true, stabilization: { enabled: true, iterations: 100 }, barnesHut: { gravitationalConstant: -3000, centralGravity: 0.5, springLength: 150 } };
     
     const options = {
         autoResize: false,
@@ -1520,18 +1783,19 @@ function initDiffusionGraph() {
         width: '100%',
         nodes: {
             shape: 'dot',
-            size: 12,
+            size: graphType === 'dvd' ? 12 : 20,
             font: { face: 'Plus Jakarta Sans', size: 12 },
             borderWidth: 2
         },
         edges: { width: 0.5, smooth: { type: 'continuous' } },
-        physics: {
-            enabled: true,
-            stabilization: { enabled: true, iterations: 150 },
-            barnesHut: { gravitationalConstant: -2500, centralGravity: 0.4, springLength: 100 }
-        },
+        physics: physicsSettings,
         interaction: { hover: true, tooltipDelay: 100 }
     };
+    
+    // Destroy previous instance
+    if (state.diffusionNetworkInstance) {
+        state.diffusionNetworkInstance.destroy();
+    }
     
     state.diffusionNetworkInstance = new vis.Network(
         container,
@@ -1542,6 +1806,9 @@ function initDiffusionGraph() {
     // Store datasets for manipulation
     state.diffusionNodes = nodesDataSet;
     state.diffusionEdges = edgesDataSet;
+    
+    // Store raw edges for diffusion algorithm
+    state.diffusionRawEdges = edges;
     
     // Click to select seeds
     state.diffusionNetworkInstance.on('click', (params) => {
@@ -1584,10 +1851,12 @@ function updateSeedList() {
         container.innerHTML = '<p class="no-seeds">No seeds selected. Click nodes to add.</p>';
     } else {
         container.innerHTML = state.selectedSeeds.map(id => {
-            const node = state.nodeMap[id];
+            const nodeInfo = state.diffusionNodeInfo?.[id];
+            const displayName = nodeInfo ? nodeInfo.title : id;
+            const shortName = displayName.length > 15 ? displayName.substring(0, 15) + '...' : displayName;
             return `
                 <span class="seed-tag">
-                    ${node ? node.title.substring(0, 15) + '...' : 'Node ' + id}
+                    ${shortName}
                     <button class="seed-remove" onclick="toggleSeed('${id}')">×</button>
                 </span>
             `;
@@ -1596,6 +1865,14 @@ function updateSeedList() {
 }
 
 function setupDiffusionControls() {
+    // Graph selector
+    document.getElementById('diffusionGraph')?.addEventListener('change', (e) => {
+        const graphType = e.target.value;
+        initDiffusionGraph(graphType);
+        updateSeedList();
+        updateDiffusionStats();
+    });
+    
     // Slider values
     document.getElementById('propProbability')?.addEventListener('input', (e) => {
         document.getElementById('propValue').textContent = e.target.value;
@@ -1628,18 +1905,40 @@ function resetDiffusion() {
     state.activatedNodes = new Set();
     state.diffusionStep = 0;
     
-    if (!state.nodesData) return;
+    if (!state.diffusionNodes) return;
     
-    // Reset all nodes except seeds
-    state.nodesData.nodes.forEach(node => {
-        const isSeed = state.selectedSeeds.includes(node.id);
+    // Reset all nodes - get all node IDs from the dataset
+    const allNodeIds = state.diffusionNodes.getIds();
+    allNodeIds.forEach(nodeId => {
+        const isSeed = state.selectedSeeds.includes(nodeId);
+        const nodeInfo = state.diffusionNodeInfo?.[nodeId];
+        
+        // For genre graphs, restore original color
+        let defaultColor = { background: '#CBD5E1', border: '#94A3B8' };
+        if (currentDiffusionGraph !== 'dvd' && nodeInfo) {
+            const genreColor = GENRE_COLORS[nodeId] || '#94A3B8';
+            defaultColor = { background: genreColor, border: genreColor };
+        }
+        
         state.diffusionNodes.update({
-            id: node.id,
+            id: nodeId,
             color: isSeed 
                 ? { background: '#10B981', border: '#059669' }
-                : { background: '#CBD5E1', border: '#94A3B8' }
+                : defaultColor
         });
     });
+    
+    // Toggle physics OFF then ON to reset layout (double toggle)
+    if (state.diffusionNetworkInstance) {
+        state.diffusionNetworkInstance.setOptions({ physics: { enabled: false } });
+        setTimeout(() => {
+            state.diffusionNetworkInstance.setOptions({ physics: { enabled: false } });
+        }, 50);
+        setTimeout(() => {
+            state.diffusionNetworkInstance.setOptions({ physics: { enabled: true } });
+            state.diffusionNetworkInstance.fit({ animation: { duration: 500 } });
+        }, 200);
+    }
     
     updateDiffusionStats();
 }
@@ -1656,13 +1955,21 @@ async function startDiffusion() {
     const probability = parseFloat(document.getElementById('propProbability').value);
     const speed = parseInt(document.getElementById('animSpeed').value);
     
-    if (!state.edgesData) return;
+    if (!state.diffusionRawEdges) return;
     
-    // Build adjacency list
+    // Build adjacency list from stored edges
     const adjacency = {};
-    state.edgesData.edges.forEach(e => {
-        if (!adjacency[e.source]) adjacency[e.source] = [];
-        adjacency[e.source].push(e.target);
+    state.diffusionRawEdges.forEach(e => {
+        // Handle different edge formats (source/target vs from/to)
+        const source = e.source || e.from;
+        const target = e.target || e.to;
+        if (!adjacency[source]) adjacency[source] = [];
+        adjacency[source].push(target);
+        // For undirected graphs (genre), add reverse edge too
+        if (currentDiffusionGraph !== 'dvd') {
+            if (!adjacency[target]) adjacency[target] = [];
+            adjacency[target].push(source);
+        }
     });
     
     // Initialize with seeds
@@ -1705,7 +2012,8 @@ function updateDiffusionStats() {
     document.getElementById('diffSeeds').textContent = state.selectedSeeds.length;
     document.getElementById('diffActivated').textContent = state.activatedNodes.size;
     
-    const total = state.nodesData ? state.nodesData.nodes.length : 0;
+    // Get total from current graph's node count
+    const total = state.diffusionNodes ? state.diffusionNodes.length : 0;
     const reach = total > 0 ? ((state.activatedNodes.size / total) * 100).toFixed(1) : 0;
     document.getElementById('diffReach').textContent = reach + '%';
     document.getElementById('diffSteps').textContent = state.diffusionStep;
