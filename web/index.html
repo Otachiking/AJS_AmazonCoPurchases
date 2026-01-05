@@ -284,12 +284,12 @@
                                     <div class="step-info">
                                         <p><strong>Focus: DVD Category</strong></p>
                                         <ul>
-                                            <li>Filter produk berdasarkan kategori DVD</li>
-                                            <li>Ekstraksi subgraph dari main network</li>
-                                            <li>Validasi konektivitas komponen</li>
+                                            <li><strong>Filter Produk:</strong> Identifikasi produk dengan <code>group: DVD</code> dari 548.552 produk metadata (amazon-meta.txt)</li>
+                                            <li><strong>Ekstraksi Subgraph:</strong> Mengambil hubungan co-purchasing hanya jika kedua produk (sumber & tujuan) adalah DVD</li>
+                                            <li><strong>Hasil:</strong> 19.828 produk DVD, 17.992 memiliki minimal satu koneksi</li>
                                         </ul>
                                         <div class="step-stats">
-                                            <span class="stat">262K → 19,828 nodes</span>
+                                            <span class="stat">~548K (Meta) / ~262K (Graph) → 19,828 nodes</span>
                                         </div>
                                     </div>
                                 </div>
@@ -305,11 +305,12 @@
                                 <div class="step-details">
                                     <div class="step-icon">🏷️</div>
                                     <div class="step-info">
-                                        <p><strong>Genre Classification</strong></p>
+                                        <p><strong>Rule-based Classification</strong></p>
                                         <ul>
-                                            <li>Mapping metadata dari Kaggle</li>
-                                            <li>Kategorisasi produk ke genre</li>
-                                            <li>Handling missing values</li>
+                                            <li><strong>Sumber:</strong> Struktur hirarki kategori dari SNAP amazon-meta.txt</li>
+                                            <li><strong>Algoritma:</strong> Deteksi token setelah keyword <code>Genres</code>, bobot 2× untuk path "General"</li>
+                                            <li><strong>Handling:</strong> Pemetaan khusus untuk Special Interests, Westerns, Cult Movies</li>
+                                            <li><strong>Fallback:</strong> Keyword matching pada judul (misal: "Action" untuk "shooting")</li>
                                         </ul>
                                         <div class="step-stats">
                                             <span class="stat">20+ Genre Categories</span>
@@ -324,18 +325,19 @@
                         <div class="pipeline-step">
                             <div class="step-number">3</div>
                             <div class="step-content">
-                                <h3>Reduksi Graf</h3>
+                                <h3>Optimasi & Reduksi Graf</h3>
                                 <div class="step-details">
                                     <div class="step-icon">📉</div>
                                     <div class="step-info">
-                                        <p><strong>Graph Optimization</strong></p>
+                                        <p><strong>Graph Refinement</strong></p>
                                         <ul>
-                                            <li>K-core decomposition</li>
-                                            <li>Remove isolated nodes</li>
-                                            <li>Sampling untuk visualisasi</li>
+                                            <li><strong>Genre Cleaning:</strong> Hapus produk <code>UNCATEGORIZED</code>, merge genre (Anime → Animation)</li>
+                                            <li><strong>Degree Filtering:</strong> Low-Degree Removal (bukan K-core decomposition)</li>
+                                            <li><strong>Kriteria:</strong> Hapus node dengan Total Degree &lt; 3 (koneksi masuk + keluar)</li>
+                                            <li><strong>Tujuan:</strong> Menghilangkan noise dan node periferal untuk struktur komunitas yang lebih padat</li>
                                         </ul>
                                         <div class="step-stats">
-                                            <span class="stat">~500 nodes (visualization)</span>
+                                            <span class="stat">Dense Network Structure</span>
                                         </div>
                                     </div>
                                 </div>
@@ -346,7 +348,7 @@
                     <div class="processing-summary">
                         <div class="summary-card">
                             <h4>📌 Summary</h4>
-                            <p>Proses pre-processing menghasilkan graf yang teroptimasi untuk analisis struktur jaringan, deteksi komunitas, dan visualisasi interaktif.</p>
+                            <p>Proses ini menghasilkan file akhir <code>amazon0302_DVD_optimized.csv</code> yang berisi jaringan DVD yang bersih, terklasifikasi berdasarkan genre yang divalidasi, dan memiliki konektivitas yang kuat untuk analisis komunitas.</p>
                         </div>
                     </div>
                 </div>
