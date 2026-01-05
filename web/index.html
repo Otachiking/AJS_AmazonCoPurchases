@@ -571,6 +571,19 @@
                         <!-- Top Products Table -->
                         <div class="products-table-container">
                             <h3>🏅 Top 15 Most Influential Products</h3>
+                            <div class="metric-selector">
+                                <span class="selector-label">Sort by:</span>
+                                <div class="metric-tabs">
+                                    <button class="metric-tab active" data-metric="pagerank">PageRank</button>
+                                    <button class="metric-tab" data-metric="betweenness">Betweenness</button>
+                                    <button class="metric-tab" data-metric="closeness">Closeness</button>
+                                    <button class="metric-tab" data-metric="eigenvector">Eigenvector</button>
+                                    <button class="metric-tab" data-metric="in_degree">In-Degree</button>
+                                    <button class="metric-tab" data-metric="out_degree">Out-Degree</button>
+                                    <button class="metric-tab" data-metric="total_degree">Total Degree</button>
+                                    <button class="metric-tab" data-metric="kcore">K-Core</button>
+                                </div>
+                            </div>
                             <div class="table-wrapper">
                                 <table class="styled-table products-table">
                                     <thead>
@@ -578,8 +591,7 @@
                                             <th>#</th>
                                             <th>Product Title</th>
                                             <th>Genre</th>
-                                            <th>Degree</th>
-                                            <th>PageRank</th>
+                                            <th id="metricHeader">PageRank</th>
                                         </tr>
                                     </thead>
                                     <tbody id="influentialTable">

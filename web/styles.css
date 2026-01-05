@@ -2021,11 +2021,59 @@ p {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .products-table-container h3 {
     color: var(--text-primary);
+}
+
+/* Metric Selector Tabs */
+.metric-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.selector-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.metric-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.metric-tab {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-family: var(--font-family);
+}
+
+.metric-tab:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.metric-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
 }
 
 .table-wrapper {

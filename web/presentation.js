@@ -286,7 +286,8 @@ function goToSlide(index) {
         initCommunityGraph();
     }
     if (index === 6 && state.nodesData) {
-        populateInfluentialTable();
+        populateInfluentialTable('pagerank');
+        initInfluentialMetricTabs();
     }
     if (index === 7 && !state.genreNetworkInstance) {
         initGenreGraph('default');
@@ -1426,26 +1427,88 @@ window.changePage = function(tabName, page) {
 // INFLUENTIAL PRODUCTS TABLE (Slide 7)
 // ============================================
 
-function populateInfluentialTable() {
+// Current metric for influential table
+let currentInfluentialMetric = 'pagerank';
+
+// Metric display names
+const METRIC_LABELS = {
+    'pagerank': 'PageRank',
+    'betweenness': 'Betweenness',
+    'closeness': 'Closeness',
+    'eigenvector': 'Eigenvector',
+    'in_degree': 'In-Degree',
+    'out_degree': 'Out-Degree',
+    'total_degree': 'Total Degree',
+    'kcore': 'K-Core'
+};
+
+function populateInfluentialTable(metric = 'pagerank') {
     const container = document.getElementById('influentialTable');
+    const headerEl = document.getElementById('metricHeader');
     if (!container || !state.nodesData) return;
+    
+    currentInfluentialMetric = metric;
+    
+    // Update header
+    if (headerEl) {
+        headerEl.textContent = METRIC_LABELS[metric] || metric;
+    }
     
     const nodes = state.nodesData.nodes;
     
-    // Sort nodes by total degree (from metrics)
+    // Get value based on metric type
+    const getValue = (node) => {
+        if (metric === 'kcore') {
+            return node.kcore || 0;
+        }
+        return node.metrics?.[metric] || 0;
+    };
+    
+    // Sort nodes by selected metric (descending)
     const sortedNodes = [...nodes]
-        .sort((a, b) => (b.metrics?.total_degree || 0) - (a.metrics?.total_degree || 0))
+        .sort((a, b) => getValue(b) - getValue(a))
         .slice(0, 15);
+    
+    // Format value based on metric type
+    const formatValue = (value, metric) => {
+        if (metric === 'kcore' || metric === 'in_degree' || metric === 'out_degree' || metric === 'total_degree') {
+            return Math.round(value);
+        }
+        // Use consistent decimal notation for all small values
+        if (value < 0.001) {
+            return value.toExponential(2);
+        }
+        return value.toFixed(6);
+    };
     
     container.innerHTML = sortedNodes.map((node, idx) => `
         <tr>
             <td>${idx + 1}</td>
-            <td title="${node.title}">${node.title.substring(0, 35)}${node.title.length > 35 ? '...' : ''}</td>
+            <td title="${node.title}">${node.title.substring(0, 40)}${node.title.length > 40 ? '...' : ''}</td>
             <td>${node.genre}</td>
-            <td>${node.metrics?.total_degree || 0}</td>
-            <td>${(node.metrics?.pagerank || 0).toFixed(6)}</td>
+            <td>${formatValue(getValue(node), metric)}</td>
         </tr>
     `).join('');
+}
+
+// Initialize metric tabs (only once)
+let influentialTabsInitialized = false;
+function initInfluentialMetricTabs() {
+    if (influentialTabsInitialized) return;
+    influentialTabsInitialized = true;
+    
+    const tabs = document.querySelectorAll('.metric-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Update active state
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Update table
+            const metric = tab.dataset.metric;
+            populateInfluentialTable(metric);
+        });
+    });
 }
 
 // ============================================
